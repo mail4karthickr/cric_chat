@@ -5,7 +5,7 @@
   "scripts": {
     "build": "esbuild src/PlayerInfo/PlayerInfo.jsx --bundle --format=esm --outfile=dist/player-info.js",
     "watch": "esbuild src/PlayerInfo/PlayerInfo.jsx --bundle --format=esm --outfile=dist/player-info.js --watch",
-    "dev": "npx http-server -p 3000 -o",
+    "dev": "npx http-server -p 3000 -c-1 -o",
     "test": "npm run build && npm run dev",
     "start": "open test_build.html"
   },
