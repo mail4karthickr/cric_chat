@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Chat - Player Info Widget</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            color: #667eea;
+        }
+        .widget-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>🏏 Cricket Chat - Player Info Widget</h1>
+            <p>Testing the widget component locally</p>
+        </div>
+        
+        <div class="widget-container">
+            <!-- Widget will render here -->
+            <div id="player-info-root"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate the widget script from widgets.py
+        const root = document.getElementById('player-info-root');
+        
+        // Create and append h1
+        const heading = document.createElement('h1');
+        heading.style.color = 'blue';
+        heading.textContent = 'TEST WIDGET';
+        root.appendChild(heading);
+        
+        // Create and append paragraph
+        const para = document.createElement('p');
+        para.textContent = 'Elements appended successfully!';
+        root.appendChild(para);
+        
+        // Create and append a styled div
+        const div = document.createElement('div');
+        div.style.background = '#f0f0f0';
+        div.style.padding = '10px';
+        div.style.border = '2px solid green';
+        div.innerHTML = '<strong>Status:</strong> Widget is working! ✓';
+        root.appendChild(div);
+        
+        console.log('Widget loaded and rendered!');
+    </script>
+</body>
+</html>
