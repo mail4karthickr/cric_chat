@@ -151,35 +151,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             min-height: 400px;
         }
-        .examples {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid #e9ecef;
-        }
-        .examples h4 {
-            margin: 0 0 10px 0;
-            color: #333;
-            font-size: 14px;
-        }
-        .example-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .example-btn {
-            padding: 8px 16px;
-            border: 1px solid #667eea;
-            border-radius: 6px;
-            background: #f8f9ff;
-            color: #667eea;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .example-btn:hover {
-            background: #667eea;
-            color: white;
-        }
         h3 {
             margin-top: 0;
             color: #333;
@@ -225,14 +196,6 @@
                 </button>
             </div>
 
-            <!-- Example Data Buttons -->
-            <div class="examples">
-                <h4>📋 Load Example Data:</h4>
-                <div class="example-buttons" id="example-buttons">
-                    <!-- Will be populated based on selected component -->
-                </div>
-            </div>
-
             <div id="status" class="status"></div>
         </div>
         
@@ -246,70 +209,23 @@
         let currentComponent = 'player-info';
         let currentScript = null;
 
-        // Example data for different components
-        const exampleData = {
-            'player-info': {
-                'KL Rahul': {
-                    "id": 8733,
-                    "name": "KL Rahul",
-                    "intlTeam": "India",
-                    "image": "https://example.com/kl-rahul.jpg",
-                    "role": "Batsman",
-                    "bat": "Right Handed Bat",
-                    "bowl": "Right-arm offbreak",
-                    "DoB": "Apr 18, 1992",
-                    "birthPlace": "Bangalore"
-                },
-                'Virat Kohli': {
-                    "id": 253802,
-                    "name": "Virat Kohli",
-                    "intlTeam": "India",
-                    "image": "https://example.com/virat-kohli.jpg",
-                    "role": "Batsman",
-                    "bat": "Right Handed Bat",
-                    "bowl": "Right-arm medium",
-                    "DoB": "Nov 05, 1988",
-                    "birthPlace": "Delhi"
+        async function loadDefaultDataForComponent(component) {
+            const filePath = `./mock-data/${component}-default.json`;
+            try {
+                const response = await fetch(filePath);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('json-input').value = JSON.stringify(data, null, 2);
+                    console.log(`✅ Loaded mock data from: ${filePath}`);
+                } else {
+                    console.log(`ℹ️ No mock file found at: ${filePath}`);
+                    document.getElementById('json-input').value = '';
                 }
-            },
-            'batting-info': {
-                'KL Rahul Stats': {
-                    "headers": ["ROWHEADER", "Test", "ODI", "T20", "IPL"],
-                    "values": [
-                        {"values": ["Matches", "43", "42", "56", "102"]},
-                        {"values": ["Innings", "74", "41", "52", "93"]},
-                        {"values": ["Runs", "2547", "1634", "1831", "3641"]},
-                        {"values": ["Balls", "4833", "1844", "1285", "2649"]},
-                        {"values": ["Highest", "199", "112", "110", "132"]},
-                        {"values": ["Average", "35.38", "46.69", "40.69", "48.55"]},
-                        {"values": ["SR", "52.7", "88.61", "142.49", "137.45"]},
-                        {"values": ["Not Out", "2", "6", "7", "18"]},
-                        {"values": ["Fours", "309", "124", "164", "315"]},
-                        {"values": ["Sixes", "17", "38", "73", "149"]},
-                        {"values": ["Ducks", "7", "2", "4", "3"]},
-                        {"values": ["50s", "13", "10", "16", "28"]},
-                        {"values": ["100s", "7", "5", "2", "4"]},
-                        {"values": ["200s", "0", "0", "0", "0"]}
-                    ],
-                    "seriesSpinner": [
-                        {"seriesName": "Career"},
-                        {"seriesId": 4061, "seriesName": "IPL 2022"}
-                    ]
-                },
-                'Sample Player Stats': {
-                    "headers": ["ROWHEADER", "Test", "ODI", "T20"],
-                    "values": [
-                        {"values": ["Matches", "100", "200", "150"]},
-                        {"values": ["Runs", "5000", "8000", "4500"]},
-                        {"values": ["Average", "45.5", "52.3", "38.9"]},
-                        {"values": ["SR", "55.2", "92.5", "145.6"]},
-                        {"values": ["100s", "15", "25", "5"]},
-                        {"values": ["50s", "30", "45", "35"]}
-                    ],
-                    "seriesSpinner": [{"seriesName": "Career"}]
-                }
+            } catch (error) {
+                console.log(`ℹ️ Could not load mock file: ${filePath}`);
+                document.getElementById('json-input').value = '';
             }
-        };
+        }
 
         // Initialize window.openai object
         if (!window.openai) {
@@ -325,8 +241,8 @@
             });
             event.target.classList.add('active');
             
-            // Update example buttons
-            updateExampleButtons();
+            // Load mock data for this component
+            loadDefaultDataForComponent(component);
             
             // Clear current display
             clearData();
@@ -335,26 +251,6 @@
             loadComponentScript();
             
             showStatus(`✅ Selected: ${component === 'player-info' ? 'Player Info' : 'Batting Statistics'}`, 'info');
-        }
-
-        function updateExampleButtons() {
-            const container = document.getElementById('example-buttons');
-            const examples = exampleData[currentComponent];
-            
-            container.innerHTML = '';
-            Object.keys(examples).forEach(name => {
-                const btn = document.createElement('button');
-                btn.className = 'example-btn';
-                btn.textContent = name;
-                btn.onclick = () => loadExampleData(name);
-                container.appendChild(btn);
-            });
-        }
-
-        function loadExampleData(exampleName) {
-            const data = exampleData[currentComponent][exampleName];
-            document.getElementById('json-input').value = JSON.stringify(data, null, 2);
-            showStatus(`📋 Loaded example: ${exampleName}`, 'info');
         }
 
         function loadComponentScript() {
@@ -458,10 +354,12 @@
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
-            updateExampleButtons();
-            loadComponentScript();
             console.log('🎯 Component Tester Ready');
-            console.log('📝 Select a component and paste JSON data to test');
+            
+            // Load default data for initial component
+            loadDefaultDataForComponent(currentComponent);
+            
+            loadComponentScript();
         });
     </script>
     
