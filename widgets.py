@@ -17,24 +17,17 @@ logger.info("🎨 Loading widgets.py module...")
 
 # Load React bundles
 WEB_DIR = Path(__file__).parent / "ui"
-logger.info(f"   Web directory: {WEB_DIR}")
-logger.info(f"   Web directory exists: {WEB_DIR.exists()}")
-
 bundle_path = WEB_DIR / "dist/player-info.js"
-logger.info(f"   Bundle path: {bundle_path}")
-logger.info(f"   Bundle exists: {bundle_path.exists()}")
 
 try:
-    PLAYER_INFO_BUNDLE = bundle_path.read_text()
+    PLAYER_INFO_BUNDLE = (WEB_DIR / "dist/player-info.js").read_text()
+    PLAYER_BATTING_INFO_BUNDLE = (WEB_DIR / "dist/player-batting-info.js").read_text()
+    PLAYER_BOWLING_INFO_BUNDLE = (WEB_DIR / "dist/player-bowling-info.js").read_text()
     HAS_UI = True
-    logger.info(f"✅ React bundle loaded successfully!")
-    logger.info(f"   Bundle size: {len(PLAYER_INFO_BUNDLE)} characters")
-    logger.info(f"   Bundle preview (first 200 chars): {PLAYER_INFO_BUNDLE[:200]}")
 except FileNotFoundError as e:
-    logger.error(f"❌ React bundle not found: {e}")
-    logger.error(f"   Expected path: {bundle_path}")
-    logger.error("⚠️  React bundles not found. Run: cd ui && npm run build")
     PLAYER_INFO_BUNDLE = ""
+    PLAYER_BATTING_INFO_BUNDLE = ""
+    PLAYER_BOWLING_INFO_BUNDLE = ""
     HAS_UI = False
 
 
@@ -84,9 +77,10 @@ widgets: List[CricUIWidget] = [
         identifier="get-player-info",
         title="Player Information",
         description=(
-            "Get detailed information about a cricket player. "
-            "Returns player profile, career statistics, batting and bowling records, "
-            "and recent performance. Use this to get comprehensive stats about any player."
+            "Fetch a player's profile and recent form. Returns identity (name, role, bat/bowl style, "
+            "teams, image), bio, ICC rankings, and recent batting/bowling snippets. "
+            "Note: This does NOT include career batting aggregates—use 'get-player-batting' for "
+            "format-wise career stats."
         ),
         template_uri="ui://widget/player-info.html",
         invoking="Loading player information...",
@@ -96,21 +90,44 @@ widgets: List[CricUIWidget] = [
             f"<script type=\"module\">\n{PLAYER_INFO_BUNDLE}\n</script>"
         ) if HAS_UI else "<div>UI not available. Build React components first.</div>",
         response_text="Displayed player information"
+    ),
+    CricUIWidget(
+        identifier="get-player-batting",
+        title="Player Batting — Career by Format",
+        description=(
+            "Show career batting aggregates by format (e.g., Tests, ODIs, T20Is, IPL). "
+            "Includes Matches, Innings, Runs, Balls, Highest, Average, Strike Rate, Not Out, "
+            "Fours, Sixes, Ducks, 50s/100s, 200s/300s/400s. "
+            "Use for 'stats' or 'career' queries. For bio/rankings/recent form, use 'get-player-info'."
+        ),
+        template_uri="ui://widget/player-batting.html",
+        invoking="Loading batting career stats…",
+        invoked="Batting career stats loaded",
+        html=(
+            f"<div id=\"player-batting-root\"></div>\n"
+            f"<script type=\"module\">\n{PLAYER_BATTING_INFO_BUNDLE}\n</script>"
+        ) if HAS_UI else "<div>UI not available. Build React components first.</div>",
+        response_text="Displayed format-wise batting career aggregates"
+    ),
+    CricUIWidget(
+        identifier="get-player-bowling",
+        title="Player Bowling — Career by Format",
+        description=(
+            "Show career bowling aggregates by format (e.g., Tests, ODIs, T20Is, IPL). "
+            "Includes Matches, Innings, Balls, Runs, Maidens, Wickets, Average, Economy, "
+            "Strike Rate, Best Bowling Innings (BBI), Best Bowling Match (BBM), 4w/5w/10w hauls. "
+            "Use for 'bowling stats' or 'career' queries. For bio/rankings/recent form, use 'get-player-info'."
+        ),
+        template_uri="ui://widget/player-bowling.html",
+        invoking="Loading bowling career stats…",
+        invoked="Bowling career stats loaded",
+        html=(
+            f"<div id=\"player-bowling-root\"></div>\n"
+            f"<script type=\"module\">\n{PLAYER_BOWLING_INFO_BUNDLE}\n</script>"
+        ) if HAS_UI else "<div>UI not available. Build React components first.</div>",
+        response_text="Displayed format-wise bowling career aggregates"
     )
 ]
 
-logger.info(f"✅ Created {len(widgets)} widget(s)")
-for i, widget in enumerate(widgets, 1):
-    logger.info(f"   [{i}] {widget.title}")
-    logger.debug(f"       - identifier: {widget.identifier}")
-    logger.debug(f"       - template_uri: {widget.template_uri}")
-    logger.debug(f"       - HTML length: {len(widget.html)} chars")
-    logger.debug(f"       - HTML starts with: {widget.html[:100]}")
-
 WIDGETS_BY_ID: Dict[str, CricUIWidget] = {widget.identifier: widget for widget in widgets}
 WIDGETS_BY_URI: Dict[str, CricUIWidget] = {widget.template_uri: widget for widget in widgets}
-
-logger.info(f"📚 Widget lookup dictionaries created:")
-logger.info(f"   - WIDGETS_BY_ID keys: {list(WIDGETS_BY_ID.keys())}")
-logger.info(f"   - WIDGETS_BY_URI keys: {list(WIDGETS_BY_URI.keys())}")
-logger.info("=" * 80)

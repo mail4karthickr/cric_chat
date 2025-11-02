@@ -1,0 +1,150 @@
+{
+  "headers": [
+    "ROWHEADER",
+    "Test",
+    "ODI",
+    "T20",
+    "IPL"
+  ],
+  "values": [
+    {
+      "values": [
+        "Matches",
+        "105",
+        "150",
+        "98",
+        "234"
+      ]
+    },
+    {
+      "values": [
+        "Innings",
+        "98",
+        "145",
+        "96",
+        "228"
+      ]
+    },
+    {
+      "values": [
+        "Balls",
+        "18245",
+        "7890",
+        "2184",
+        "5328"
+      ]
+    },
+    {
+      "values": [
+        "Runs",
+        "8234",
+        "6012",
+        "2856",
+        "6984"
+      ]
+    },
+    {
+      "values": [
+        "Maidens",
+        "234",
+        "45",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "values": [
+        "Wickets",
+        "387",
+        "245",
+        "118",
+        "285"
+      ]
+    },
+    {
+      "values": [
+        "Avg",
+        "21.27",
+        "24.54",
+        "24.20",
+        "24.51"
+      ]
+    },
+    {
+      "values": [
+        "Eco",
+        "2.71",
+        "4.57",
+        "7.84",
+        "7.86"
+      ]
+    },
+    {
+      "values": [
+        "SR",
+        "47.1",
+        "32.2",
+        "18.5",
+        "18.7"
+      ]
+    },
+    {
+      "values": [
+        "BBI",
+        "7/59",
+        "5/27",
+        "4/16",
+        "5/13"
+      ]
+    },
+    {
+      "values": [
+        "BBM",
+        "13/140",
+        "5/27",
+        "4/16",
+        "5/13"
+      ]
+    },
+    {
+      "values": [
+        "4w",
+        "12",
+        "8",
+        "5",
+        "9"
+      ]
+    },
+    {
+      "values": [
+        "5w",
+        "23",
+        "3",
+        "0",
+        "2"
+      ]
+    },
+    {
+      "values": [
+        "10w",
+        "3",
+        "0",
+        "0",
+        "0"
+      ]
+    }
+  ],
+  "appIndex": {
+    "seoTitle": "Ravichandran Ashwin Profile - Cricbuzz | Cricbuzz.com",
+    "webURL": "http://www.cricbuzz.com/profiles/2629/ravichandran-ashwin"
+  },
+  "seriesSpinner": [
+    {
+      "seriesName": "Career"
+    },
+    {
+      "seriesId": 4061,
+      "seriesName": "Indian Premier League 2022"
+    }
+  ]
+}

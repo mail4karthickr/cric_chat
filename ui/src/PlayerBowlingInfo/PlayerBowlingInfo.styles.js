@@ -149,17 +149,12 @@ export const HeaderCell = styled.th`
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 2px solid ${theme.colors.overlayMedium};
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  white-space: nowrap;
   
   &:first-child {
-    padding-left: ${theme.spacing.md};
-    padding-right: ${theme.spacing.xs};
-    position: sticky;
     text-align: left;
-    z-index: 11;
+    padding-left: ${theme.spacing.xl};
+    min-width: 120px;
   }
 `;
 
@@ -175,44 +170,25 @@ export const TableBody = styled.tbody`
 `;
 
 export const DataRow = styled.tr`
-  transition: all 0.2s ease;
+  border-bottom: 1px solid #e9ecef;
+  
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 export const DataCell = styled.td`
-  padding: 10px ${theme.spacing.xs};
+  padding: ${theme.spacing.md} ${theme.spacing.xs};
+  text-align: center;
   font-size: ${theme.fontSize.sm};
-  color: #333333;
-  border-bottom: 1px solid #e0e0e0;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  color: #495057;
   
   &:first-child {
+    text-align: left;
+    padding-left: ${theme.spacing.xl};
     font-weight: ${theme.fontWeight.semibold};
-    color: ${theme.colors.primary};
-    padding-left: ${theme.spacing.md};
-    padding-right: ${theme.spacing.xs};
-    position: sticky;
-    left: 0;
-    background: inherit;
-    z-index: 1;
+    color: #212529;
   }
-  
-  &:not(:first-child) {
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-  }
-`;
-
-export const HighlightCell = styled(DataCell)`
-  font-weight: ${theme.fontWeight.bold};
-  color: ${props => {
-    const value = parseFloat(props.children);
-    if (props.children === 'Runs' || props.children === 'Average' || props.children === 'SR') return theme.colors.primary;
-    if (!isNaN(value) && value > 100) return theme.colors.success;
-    return '#333333';
-  }};
 `;
 
 export const EmptyState = styled.div`
@@ -220,50 +196,45 @@ export const EmptyState = styled.div`
   text-align: center;
   color: ${theme.colors.textLight};
   font-size: ${theme.fontSize.sm};
-`;
-
-export const LoadingState = styled.div`
-  padding: ${theme.spacing.md};
-  text-align: center;
-  color: ${theme.colors.textLight};
-  font-size: ${theme.fontSize.sm};
-  
-  &::after {
-    content: '...';
-    animation: dots 1.5s steps(4, end) infinite;
-  }
-  
-  @keyframes dots {
-    0%, 20% { content: '.'; }
-    40% { content: '..'; }
-    60%, 100% { content: '...'; }
-  }
+  font-weight: ${theme.fontWeight.medium};
 `;
 
 export const StatBadge = styled.span`
   display: inline-block;
-  padding: ${theme.spacing.xs} ${theme.spacing.sm};
+  padding: ${theme.spacing.xs} ${theme.spacing.md};
+  border-radius: ${theme.borderRadius.medium};
+  font-weight: ${theme.fontWeight.bold};
+  font-size: 13px;
   background: ${props => {
-    const value = parseFloat(props.children);
-    if (props.type === '100s' && value > 0) return 'linear-gradient(135deg, #006385 0%, #004A63 100%)';
-    if (props.type === '50s' && value > 0) return 'linear-gradient(135deg, #0082AB 0%, #006385 100%)';
-    return 'transparent';
+    if (props.type === '5w' || props.type === '10w') return 'linear-gradient(135deg, #006385 0%, #004A63 100%)';
+    if (props.type === '4w') return 'linear-gradient(135deg, #0082AB 0%, #006385 100%)';
+    return 'linear-gradient(135deg, #00A1D1 0%, #0082AB 100%)';
   }};
-  border-radius: 12px;
-  font-weight: 700;
-  color: ${props => {
-    const value = parseFloat(props.children);
-    if ((props.type === '100s' || props.type === '50s') && value > 0) return '#ffffff';
-    return 'inherit';
-  }};
-  box-shadow: ${props => {
-    const value = parseFloat(props.children);
-    if ((props.type === '100s' || props.type === '50s') && value > 0) return '0 2px 8px rgba(0, 0, 0, 0.15)';
-    return 'none';
-  }};
-  text-shadow: ${props => {
-    const value = parseFloat(props.children);
-    if ((props.type === '100s' || props.type === '50s') && value > 0) return '0 1px 2px rgba(0, 0, 0, 0.1)';
-    return 'none';
-  }};
+  color: ${theme.colors.textLight};
+  box-shadow: 0 2px 8px ${theme.colors.overlayDarker};
+  text-shadow: 0 1px 2px ${theme.colors.overlayLight};
+`;
+
+export const LoadingSpinner = styled.div`
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 1s ease-in-out infinite;
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+`;
+
+export const ErrorMessage = styled.div`
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  backdrop-filter: blur(10px);
 `;

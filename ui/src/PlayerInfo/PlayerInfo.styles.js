@@ -1,40 +1,45 @@
 import styled from 'styled-components';
+import theme from '../theme';
 
 export const Container = styled.div`
   max-width: 1024px;
   margin: 0 auto;
-  padding: 24px;
-  background-color: ${props => props.$isDark ? '#111827' : '#ffffff'};
-  color: ${props => props.$isDark ? '#ffffff' : '#111827'};
+  padding: ${theme.spacing.xxl};
+  background: ${theme.gradients.primary};
+  border-radius: ${theme.borderRadius.large};
+  box-shadow: ${theme.shadows.xlarge};
+  color: ${theme.colors.textLight};
 `;
 
 export const LoadingContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px;
-  color: #6b7280;
+  padding: ${theme.spacing.md};
+  text-align: center;
+  color: ${theme.colors.textLight};
+  font-size: ${theme.fontSize.sm};
 `;
 
 export const Card = styled.div`
-  border-radius: 8px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  padding: 24px;
-  margin-bottom: 24px;
-  background-color: ${props => props.$isDark ? '#1f2937' : '#ffffff'};
+  border-radius: ${theme.borderRadius.medium};
+  box-shadow: ${theme.shadows.large};
+  padding: ${theme.spacing.xxl};
+  margin-bottom: ${theme.spacing.xxl};
+  background-color: ${theme.colors.white};
+  color: ${theme.colors.textDark};
 `;
 
 export const HeaderCard = styled(Card)`
-  background: ${props => props.$isDark 
-    ? '#1f2937' 
-    : 'linear-gradient(to right, #eff6ff, #eef2ff)'};
+  background: ${theme.colors.white};
 `;
 
 export const HeaderContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: ${theme.spacing.xxl};
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -45,10 +50,10 @@ export const HeaderContent = styled.div`
 export const PlayerImage = styled.img`
   width: 128px;
   height: 128px;
-  border-radius: 50%;
+  border-radius: ${theme.borderRadius.round};
   object-fit: cover;
-  border: 4px solid #3b82f6;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 4px solid ${theme.colors.primary};
+  box-shadow: ${theme.shadows.large};
   flex-shrink: 0;
 
   @media (min-width: 768px) {
@@ -68,8 +73,9 @@ export const PlayerInfo = styled.div`
 
 export const PlayerName = styled.h1`
   font-size: 1.875rem;
-  font-weight: bold;
-  margin-bottom: 8px;
+  font-weight: ${theme.fontWeight.bold};
+  margin-bottom: ${theme.spacing.sm};
+  color: ${theme.colors.textDark};
 
   @media (min-width: 768px) {
     font-size: 2.25rem;
@@ -78,15 +84,15 @@ export const PlayerName = styled.h1`
 
 export const NickName = styled.p`
   font-size: 1.125rem;
-  color: ${props => props.$isDark ? '#9ca3af' : '#4b5563'};
-  margin-bottom: 12px;
+  color: ${theme.colors.textGray};
+  margin-bottom: ${theme.spacing.md};
 `;
 
 export const InfoGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 16px;
+  gap: ${theme.spacing.md};
+  margin-top: ${theme.spacing.lg};
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -104,45 +110,47 @@ export const Label = styled.span`
 `;
 
 export const Badge = styled.span`
-  padding: 4px 12px;
+  padding: ${theme.spacing.xs} ${theme.spacing.md};
   border-radius: 9999px;
   font-size: 0.875rem;
   background-color: ${props => {
     if (props.$variant === 'role') {
-      return props.$isDark ? '#1e3a8a' : '#dbeafe';
+      return theme.colors.badgeRole;
     }
     if (props.$variant === 'team') {
-      return props.$isDark ? '#14532d' : '#dcfce7';
+      return theme.colors.badgeTeam;
     }
     if (props.$variant === 'format') {
-      return props.$isDark ? '#374151' : '#f3f4f6';
+      return theme.colors.badgeFormat;
     }
-    return props.$isDark ? '#374151' : '#f3f4f6';
+    return theme.colors.gray100;
   }};
   color: ${props => {
     if (props.$variant === 'role') {
-      return props.$isDark ? '#bfdbfe' : '#1e40af';
+      return theme.colors.primary;
     }
     if (props.$variant === 'team') {
-      return props.$isDark ? '#bbf7d0' : '#15803d';
+      return theme.colors.primaryDarker;
     }
-    return 'inherit';
+    return theme.colors.textDark;
   }};
 `;
 
 export const SectionTitle = styled.h2`
   font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 16px;
+  font-weight: ${theme.fontWeight.bold};
+  margin-bottom: ${theme.spacing.lg};
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: ${theme.spacing.sm};
+  color: ${theme.colors.textLight};
+  text-shadow: ${theme.shadows.textShadow};
 `;
 
 export const RankingsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: ${theme.spacing.lg};
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
@@ -150,37 +158,16 @@ export const RankingsGrid = styled.div`
 `;
 
 export const RankingCard = styled.div`
-  padding: 16px;
-  border-radius: 8px;
-  background-color: ${props => {
-    if (props.$variant === 'batting') {
-      return props.$isDark ? '#374151' : '#eff6ff';
-    }
-    if (props.$variant === 'bowling') {
-      return props.$isDark ? '#374151' : '#f0fdf4';
-    }
-    if (props.$variant === 'allrounder') {
-      return props.$isDark ? '#374151' : '#faf5ff';
-    }
-    return props.$isDark ? '#374151' : '#f3f4f6';
-  }};
+  padding: ${theme.spacing.lg};
+  border-radius: ${theme.borderRadius.medium};
+  background-color: ${theme.colors.white};
+  box-shadow: ${theme.shadows.medium};
 `;
 
 export const RankingTitle = styled.h3`
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: ${props => {
-    if (props.$variant === 'batting') {
-      return props.$isDark ? '#93c5fd' : '#2563eb';
-    }
-    if (props.$variant === 'bowling') {
-      return props.$isDark ? '#86efac' : '#16a34a';
-    }
-    if (props.$variant === 'allrounder') {
-      return props.$isDark ? '#d8b4fe' : '#9333ea';
-    }
-    return 'inherit';
-  }};
+  font-weight: ${theme.fontWeight.semibold};
+  margin-bottom: ${theme.spacing.sm};
+  color: ${theme.colors.primary};
 `;
 
 export const RankingItem = styled.div`
@@ -195,16 +182,16 @@ export const RankValue = styled.span`
 `;
 
 export const RankDiff = styled.span`
-  margin-left: 8px;
+  margin-left: ${theme.spacing.sm};
   font-size: 0.875rem;
-  color: ${props => props.$isNegative ? '#ef4444' : '#22c55e'};
+  color: ${props => props.$isNegative ? theme.colors.error : theme.colors.success};
 `;
 
 export const PerformanceGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
+  gap: ${theme.spacing.xxl};
+  margin-bottom: ${theme.spacing.xxl};
 
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr;
@@ -221,60 +208,61 @@ export const Table = styled.table`
 `;
 
 export const TableHeader = styled.thead`
-  border-bottom: 1px solid ${props => props.$isDark ? '#374151' : '#e5e7eb'};
+  border-bottom: 1px solid ${theme.colors.gray200};
 `;
 
 export const TableHeaderCell = styled.th`
   text-align: left;
-  padding: 8px;
-  font-weight: 600;
+  padding: ${theme.spacing.sm};
+  font-weight: ${theme.fontWeight.semibold};
 `;
 
 export const TableBody = styled.tbody``;
 
 export const TableRow = styled.tr`
-  border-bottom: 1px solid ${props => props.$isDark ? '#374151' : '#f3f4f6'};
+  border-bottom: 1px solid ${theme.colors.gray100};
 `;
 
 export const TableCell = styled.td`
-  padding: 8px;
-  font-weight: ${props => props.$bold ? '600' : 'normal'};
-  color: ${props => props.$muted ? (props.$isDark ? '#9ca3af' : '#4b5563') : 'inherit'};
+  padding: ${theme.spacing.sm};
+  font-weight: ${props => props.$bold ? theme.fontWeight.semibold : theme.fontWeight.normal};
+  color: ${props => props.$muted ? theme.colors.gray600 : theme.colors.textDark};
 `;
 
 export const TeamBadge = styled.span`
-  padding: 4px 12px;
+  padding: ${theme.spacing.xs} ${theme.spacing.md};
   border-radius: 9999px;
   font-size: 0.875rem;
-  background-color: ${props => props.$isDark ? '#374151' : '#f3f4f6'};
+  background-color: ${theme.colors.gray100};
   cursor: pointer;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: ${props => props.$isDark ? '#4b5563' : '#e5e7eb'};
+    background-color: ${theme.colors.gray200};
   }
 `;
 
 export const TeamContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: ${theme.spacing.sm};
 `;
 
 export const BiographyContent = styled.div`
   max-width: none;
   line-height: 1.75;
+  color: ${theme.colors.textDark};
 
   b {
-    font-weight: 600;
+    font-weight: ${theme.fontWeight.semibold};
   }
 
   br {
-    margin-bottom: 8px;
+    margin-bottom: ${theme.spacing.sm};
   }
 
   i {
     font-style: italic;
-    color: ${props => props.$isDark ? '#9ca3af' : '#6b7280'};
+    color: ${theme.colors.gray500};
   }
 `;

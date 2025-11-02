@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "CricChat MCP Server UI Components",
   "scripts": {
-    "build": "esbuild src/PlayerInfo/PlayerInfo.jsx --bundle --format=esm --outfile=dist/player-info.js && esbuild src/PlayerBattingInfo/PlayerBattingInfo.jsx --bundle --format=esm --outfile=dist/player-batting-info.js",
-    "watch": "esbuild src/PlayerInfo/PlayerInfo.jsx --bundle --format=esm --outfile=dist/player-info.js --watch & esbuild src/PlayerBattingInfo/PlayerBattingInfo.jsx --bundle --format=esm --outfile=dist/player-batting-info.js --watch",
+    "build": "esbuild src/PlayerInfo/PlayerInfo.jsx --bundle --format=esm --outfile=dist/player-info.js && esbuild src/PlayerBattingInfo/PlayerBattingInfo.jsx --bundle --format=esm --outfile=dist/player-batting-info.js && esbuild src/PlayerBowlingInfo/PlayerBowlingInfo.jsx --bundle --format=esm --outfile=dist/player-bowling-info.js",
+    "watch": "esbuild src/PlayerInfo/PlayerInfo.jsx --bundle --format=esm --outfile=dist/player-info.js --watch & esbuild src/PlayerBattingInfo/PlayerBattingInfo.jsx --bundle --format=esm --outfile=dist/player-batting-info.js --watch & esbuild src/PlayerBowlingInfo/PlayerBowlingInfo.jsx --bundle --format=esm --outfile=dist/player-bowling-info.js --watch",
     "dev": "npx http-server -p 3000 -c-1 -o",
     "test": "npm run build && npm run dev",
     "start": "open test_build.html"

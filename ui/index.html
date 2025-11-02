@@ -176,6 +176,9 @@
                 <button class="component-btn" onclick="selectComponent('batting-info')">
                     🏏 Batting Statistics
                 </button>
+                <button class="component-btn" onclick="selectComponent('bowling-info')">
+                    🎳 Bowling Statistics
+                </button>
             </div>
 
             <h3>JSON Input</h3>
@@ -201,13 +204,16 @@
         
         <!-- Widget Render Area -->
         <div class="widget-container">
-            <div id="component-root"></div>
+            <div id="player-info-root" style="display: none;"></div>
+            <div id="player-batting-root" style="display: none;"></div>
+            <div id="player-bowling-root" style="display: none;"></div>
         </div>
     </div>
     
     <script>
         let currentComponent = 'player-info';
         let currentScript = null;
+        let loadedScripts = {}; // Track which scripts have been loaded
 
         async function loadDefaultDataForComponent(component) {
             const filePath = `./mock-data/${component}-default.json`;
@@ -241,44 +247,74 @@
             });
             event.target.classList.add('active');
             
-            // Load mock data for this component
+            // Load mock data for this component (always load to JSON input)
             loadDefaultDataForComponent(component);
             
-            // Clear current display
-            clearData();
-            
-            // Load the appropriate component script
+            // Load the appropriate component script (this handles clearing)
             loadComponentScript();
             
-            showStatus(`✅ Selected: ${component === 'player-info' ? 'Player Info' : 'Batting Statistics'}`, 'info');
+            const componentNames = {
+                'player-info': 'Player Info',
+                'batting-info': 'Batting Statistics',
+                'bowling-info': 'Bowling Statistics'
+            };
+            
+            showStatus(`✅ Selected: ${componentNames[component]}`, 'info');
         }
 
         function loadComponentScript() {
-            // Remove old script if exists
-            if (currentScript) {
-                currentScript.remove();
-                currentScript = null;
+            // Map component names to root IDs
+            const rootMap = {
+                'player-info': 'player-info-root',
+                'batting-info': 'player-batting-root',
+                'bowling-info': 'player-bowling-root'
+            };
+            
+            const rootId = rootMap[currentComponent];
+            
+            // Hide all roots except current one
+            Object.values(rootMap).forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            // Show the current component's root
+            const currentRoot = document.getElementById(rootId);
+            currentRoot.style.display = 'block';
+            
+            console.log(`📍 Showing root element: #${rootId}`);
+            
+            // Only load the script if it hasn't been loaded yet
+            if (loadedScripts[currentComponent]) {
+                console.log(`✅ Component script already loaded for: ${currentComponent}`);
+                // Re-trigger render if data exists
+                if (window.openai.toolOutput) {
+                    window.dispatchEvent(new CustomEvent('openai:set_globals', {
+                        detail: { globals: { toolOutput: window.openai.toolOutput } }
+                    }));
+                }
+                return;
             }
             
-            // Clear the component root
-            const root = document.getElementById('component-root');
-            root.innerHTML = '';
+            // Map component names to script paths
+            const scriptMap = {
+                'player-info': './dist/player-info.js',
+                'batting-info': './dist/player-batting-info.js',
+                'bowling-info': './dist/player-bowling-info.js'
+            };
             
-            // Load new script
-            const scriptPath = currentComponent === 'player-info' 
-                ? './dist/player-info.js' 
-                : './dist/player-batting-info.js';
+            const scriptPath = scriptMap[currentComponent];
             
-            currentScript = document.createElement('script');
-            currentScript.type = 'module';
-            currentScript.src = scriptPath;
-            currentScript.onerror = () => {
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.src = scriptPath + '?t=' + Date.now(); // Cache bust
+            script.onerror = () => {
                 showStatus(`❌ Failed to load ${scriptPath}. Make sure to run 'npm run build' first!`, 'error');
             };
-            currentScript.onload = () => {
+            script.onload = () => {
                 console.log(`✅ Loaded ${scriptPath}`);
+                loadedScripts[currentComponent] = true;
             };
-            document.body.appendChild(currentScript);
+            document.body.appendChild(script);
         }
 
         function showStatus(message, type) {
@@ -329,10 +365,24 @@
                 detail: { globals: { toolOutput: null } }
             }));
             
-            document.getElementById('json-input').value = '';
-            document.getElementById('component-root').innerHTML = '';
+            // Map component names to root IDs
+            const rootMap = {
+                'player-info': 'player-info-root',
+                'batting-info': 'player-batting-root',
+                'bowling-info': 'player-bowling-root'
+            };
             
-            showStatus('🔄 Data cleared. Component reset.', 'info');
+            // Clear the root element for the current component
+            const rootId = rootMap[currentComponent];
+            const rootElement = document.getElementById(rootId);
+            if (rootElement) {
+                rootElement.innerHTML = '';
+                console.log(`🧹 Cleared root element: #${rootId}`);
+            }
+            
+            document.getElementById('json-input').value = '';
+            
+            showStatus('🔄 Data cleared. Component will show empty state.', 'info');
         }
 
         function formatJSON() {
@@ -356,7 +406,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             console.log('🎯 Component Tester Ready');
             
-            // Load default data for initial component
+            // Load default data for initial component (always load to input field)
             loadDefaultDataForComponent(currentComponent);
             
             loadComponentScript();

@@ -17,25 +17,25 @@ import {
   DataCell,
   EmptyState,
   StatBadge
-} from './PlayerBattingInfo.styles.js';
+} from './PlayerBowlingInfo.styles.js';
 
-console.log('🎯 PlayerBattingInfo module loaded');
+console.log('🎯 PlayerBowlingInfo module loaded');
 
-const PlayerBattingInfoComponent = () => {
-  console.log('🏏 PlayerBattingInfo rendering');
+const PlayerBowlingInfoComponent = () => {
+  console.log('🏏 PlayerBowlingInfo rendering');
   const toolOutput = useToolOutput();
   console.log('📊 Tool output:', toolOutput);
   
-  return <PlayerBattingInfo data={toolOutput} title="Batting Statistics" />;
+  return <PlayerBowlingInfo data={toolOutput} title="Bowling Statistics" />;
 };
 
-const PlayerBattingInfo = ({ data, title = "Batting Statistics" }) => {
+const PlayerBowlingInfo = ({ data, title = "Bowling Statistics" }) => {
   const [selectedSeries, setSelectedSeries] = useState(0);
 
   if (!data) {
     return (
       <Container>
-        <EmptyState>🏏 Loading Batting Statistics...</EmptyState>
+        <EmptyState>🥎 Loading Bowling Statistics...</EmptyState>
       </Container>
     );
   }
@@ -47,15 +47,15 @@ const PlayerBattingInfo = ({ data, title = "Batting Statistics" }) => {
   if (!headers || !values) {
     return (
       <Container>
-        <EmptyState>🏏 Loading Batting Statistics...</EmptyState>
+        <EmptyState>🥎 Loading Bowling Statistics...</EmptyState>
       </Container>
     );
   }
 
   // Function to render cell value with special formatting
   const renderCellValue = (value, rowLabel) => {
-    // Add badges for centuries and half-centuries
-    if (rowLabel === '100s' || rowLabel === '50s') {
+    // Add badges for 4-wicket and 5-wicket hauls
+    if (rowLabel === '4w' || rowLabel === '5w' || rowLabel === '10w') {
       return <StatBadge type={rowLabel}>{value}</StatBadge>;
     }
     return value;
@@ -63,7 +63,7 @@ const PlayerBattingInfo = ({ data, title = "Batting Statistics" }) => {
 
   // Get important stats for highlighting
   const isImportantStat = (label) => {
-    const importantStats = ['Runs', 'Average', 'SR', 'Highest', '100s', '50s'];
+    const importantStats = ['Wickets', 'Avg', 'Eco', 'SR', 'BBI', 'BBM', '5w'];
     return importantStats.includes(label);
   };
 
@@ -74,7 +74,7 @@ const PlayerBattingInfo = ({ data, title = "Batting Statistics" }) => {
       MozUserSelect: 'none',
       msUserSelect: 'none'
     }}>
-      <Title>🏏 {title}</Title>
+      <Title>🥎 {title}</Title>
       
       {/* Player Information */}
       {playerTitle && <PlayerName>{playerTitle}</PlayerName>}
@@ -130,7 +130,7 @@ const PlayerBattingInfo = ({ data, title = "Batting Statistics" }) => {
   );
 };
 
-export default PlayerBattingInfo;
+export default PlayerBowlingInfo;
 
 // Mount the component
 console.log('🔍 Looking for mount point...');
@@ -139,9 +139,9 @@ console.log('🔍 Looking for mount point...');
 let reactRoot = null;
 
 function mountWidget() {
-  const rootElement = document.getElementById('player-batting-root');
+  const rootElement = document.getElementById('player-bowling-root');
   if (rootElement) {
-    console.log('✅ Found mount point #player-batting-root, rendering...');
+    console.log('✅ Found mount point #player-bowling-root, rendering...');
     
     // Only create root once, then reuse it
     if (!reactRoot) {
@@ -149,16 +149,33 @@ function mountWidget() {
       console.log('🔧 Created new React root');
     }
     
-    reactRoot.render(<PlayerBattingInfoComponent />);
-    console.log('🎉 Component mounted!');
+    reactRoot.render(<PlayerBowlingInfoComponent />);
+    console.log('🎨 Component rendered successfully');
   } else {
-    console.error('❌ Mount point #player-batting-root not found!');
+    console.log('⏳ Mount point not found, will retry...');
   }
 }
 
-// Mount when DOM is ready
+// Try to mount immediately
 if (document.readyState === 'loading') {
+  console.log('⏳ Document still loading, waiting...');
   document.addEventListener('DOMContentLoaded', mountWidget);
 } else {
+  console.log('✅ Document ready, mounting...');
   mountWidget();
 }
+
+// Also set up a MutationObserver to catch when the element is added
+const observer = new MutationObserver((mutations) => {
+  if (document.getElementById('player-bowling-root') && !reactRoot) {
+    console.log('🔄 Mount point detected by observer, mounting...');
+    mountWidget();
+  }
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+console.log('👀 MutationObserver set up');

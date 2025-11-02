@@ -48,7 +48,10 @@ const PlayerInfoComponent = () => {
   if (!toolOutput) {
     return (
       <Container>
-        <LoadingContainer>⏳ Loading player information...</LoadingContainer>
+        <LoadingContainer>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🏏</div>
+          <div style={{ fontSize: '18px' }}>Loading player information...</div>
+        </LoadingContainer>
       </Container>
     );
   }
