@@ -179,6 +179,9 @@
                 <button class="component-btn" onclick="selectComponent('bowling-info')">
                     🎳 Bowling Statistics
                 </button>
+                <button class="component-btn" onclick="selectComponent('player-news')">
+                    📰 Player News
+                </button>
             </div>
 
             <h3>JSON Input</h3>
@@ -207,6 +210,7 @@
             <div id="player-info-root" style="display: none;"></div>
             <div id="player-batting-root" style="display: none;"></div>
             <div id="player-bowling-root" style="display: none;"></div>
+            <div id="player-news-root" style="display: none;"></div>
         </div>
     </div>
     
@@ -256,7 +260,8 @@
             const componentNames = {
                 'player-info': 'Player Info',
                 'batting-info': 'Batting Statistics',
-                'bowling-info': 'Bowling Statistics'
+                'bowling-info': 'Bowling Statistics',
+                'player-news': 'Player News'
             };
             
             showStatus(`✅ Selected: ${componentNames[component]}`, 'info');
@@ -267,7 +272,8 @@
             const rootMap = {
                 'player-info': 'player-info-root',
                 'batting-info': 'player-batting-root',
-                'bowling-info': 'player-bowling-root'
+                'bowling-info': 'player-bowling-root',
+                'player-news': 'player-news-root'
             };
             
             const rootId = rootMap[currentComponent];
@@ -299,7 +305,8 @@
             const scriptMap = {
                 'player-info': './dist/player-info.js',
                 'batting-info': './dist/player-batting-info.js',
-                'bowling-info': './dist/player-bowling-info.js'
+                'bowling-info': './dist/player-bowling-info.js',
+                'player-news': './dist/player-news.js'
             };
             
             const scriptPath = scriptMap[currentComponent];
@@ -369,7 +376,8 @@
             const rootMap = {
                 'player-info': 'player-info-root',
                 'batting-info': 'player-batting-root',
-                'bowling-info': 'player-bowling-root'
+                'bowling-info': 'player-bowling-root',
+                'player-news': 'player-news-root'
             };
             
             // Clear the root element for the current component

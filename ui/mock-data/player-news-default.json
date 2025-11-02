@@ -1,0 +1,203 @@
+{
+  "storyList": [
+    {
+      "story": {
+        "id": 122024,
+        "hline": "The contrasting worlds of Rohit and Rahul",
+        "intro": "Where the LSG skipper and his side are enjoying a fine run of form, Rohit and the Mumbai Indians continue to search for a chasm of light amid the gloom",
+        "pubTime": "1650852892912",
+        "source": "Cricbuzz",
+        "storyType": "News",
+        "imageId": 232020,
+        "seoHeadline": "The contrasting worlds of Rohit and Rahul",
+        "context": "IPL 2022",
+        "coverImage": {
+          "id": "232020",
+          "caption": "Mumbai Indians are winless in eight games this season.",
+          "source": "BCCI/IPL"
+        }
+      }
+    },
+    {
+      "ad": {
+        "name": "native_news_index",
+        "layout": "native_large",
+        "position": 1
+      }
+    },
+    {
+      "story": {
+        "id": 122023,
+        "hline": "KL Rahul's love affair with MI continues",
+        "intro": "The Lucknow Super Giants skipper scored more than 60% of his team's total as MI lost their eighth straight game",
+        "pubTime": "1650852073400",
+        "source": "Cricbuzz",
+        "storyType": "Match Features",
+        "imageId": 232019,
+        "seoHeadline": "KL Rahul's love affair with MI continues",
+        "context": "IPL 2022",
+        "coverImage": {
+          "id": "232019",
+          "caption": "Rahul has scored hundreds in both games now against Mumbai Indians this season.",
+          "source": "BCCI/IPL"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 121579,
+        "hline": "Can Rahul and LSG begin their new journey with a bang?",
+        "intro": "The IPL debutants are a team stacked with all-rounders, backed up by quality batting line-up and plenty of fire in the bowling",
+        "pubTime": "1647917057162",
+        "source": "Cricbuzz",
+        "storyType": "Features",
+        "imageId": 228698,
+        "seoHeadline": "Can Rahul and LSG begin their new journey with a bang?",
+        "context": "IPL 2022",
+        "coverImage": {
+          "id": "228698",
+          "caption": "Apart from Rahul, the Super Giants picked Marcus Stoinis and Ravi Bishnoi as their other two pre-auction buys.",
+          "source": "Lucknow Super Giants"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 121020,
+        "hline": "Rahul, Axar ruled out of T20I series against West Indies",
+        "intro": "Ruturaj Gaikwad and Deepak Hooda have been named replacements for the upcoming three-match series ",
+        "pubTime": "1644584258547",
+        "source": "Cricbuzz",
+        "storyType": "News",
+        "imageId": 226210,
+        "seoHeadline": "Rahul, Axar ruled out of T20I series against West Indies",
+        "context": "West Indies tour of India, 2022",
+        "coverImage": {
+          "id": "226210",
+          "caption": "KL Rahul and Axar Patel have been ruled out of the T20I series against West Indies",
+          "source": "BCCI"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 120795,
+        "hline": "KL Rahul signed by Lucknow franchise for INR 17 crores",
+        "intro": "Rahul will captain the team, that has also signed Marcus Stoinis (INR 9.2 crores) and Ravi Bishnoi (INR 4 crores) ",
+        "pubTime": "1642814682209",
+        "source": "Cricbuzz",
+        "storyType": "News",
+        "imageId": 225272,
+        "seoHeadline": "KL Rahul signed by Lucknow franchise for INR 17 crores",
+        "context": "IPL 2022 Picks",
+        "coverImage": {
+          "id": "225272",
+          "caption": "KL Rahul and Ravi Bishnoi, teammates at Punjab Kings, will be part of the Lucknow franchise.",
+          "source": "BCCI/IPL"
+        }
+      }
+    },
+    {
+      "ad": {
+        "name": "native_news_index_2",
+        "layout": "native_large",
+        "position": 5
+      }
+    },
+    {
+      "story": {
+        "id": 120783,
+        "hline": "Pant-Rahul century stand, Thakur's 40* help India to 287",
+        "intro": "Pant and Rahul struck half-centuries but it required a cameo from Thakur to help India post a challenging total",
+        "pubTime": "1642769162020",
+        "source": "Cricbuzz",
+        "storyType": "News",
+        "imageId": 225231,
+        "seoHeadline": "Pant-Rahul century stand, Thakur's 40* help India to 287",
+        "context": "India tour of South Africa, 2021-22",
+        "coverImage": {
+          "id": "225231",
+          "caption": "Shardul Thakur struck an unbeaten 40 off 38 balls",
+          "source": "AFP"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 120467,
+        "hline": "Rahul named captain for South Africa ODIs; Ashwin returns",
+        "intro": "Regular ODI captain Rohit, Jadeja and Axar unavailable due to respective injuries; Shami rested",
+        "pubTime": "1640965213232",
+        "source": "Cricbuzz",
+        "storyType": "News",
+        "imageId": 222133,
+        "seoHeadline": "Rahul named captain for South Africa ODIs; Ashwin returns",
+        "context": "India's tour of South Africa, 2021-22",
+        "coverImage": {
+          "id": "222133",
+          "caption": "Rahul was earlier named Test vice-captain in Rohit's absence. ",
+          "source": "Getty"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 120453,
+        "hline": "Enjoying leaving balls outside off stump: Rahul",
+        "intro": "The Indian opener batted in excess of six hours across two days to lay the foundation stone for India's win at Centurion",
+        "pubTime": "1640876581057",
+        "source": "Cricbuzz",
+        "storyType": "Match Features",
+        "imageId": 222080,
+        "seoHeadline": "Enjoying leaving balls outside off stump: KL Rahul, India cricket tour of South Africa, 2021-22",
+        "context": "India tour of South Africa, 2021-22",
+        "coverImage": {
+          "id": "222080",
+          "caption": "The seeds of India's 1-0 lead and a big step towards a historic series victory were sown by the first innings batting effort, led admirably by Rahul",
+          "source": "AFP"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 120436,
+        "hline": "India stretch lead past 200 in slow-moving session",
+        "intro": "The visitors lost two wickets for only 63 runs in the morning session",
+        "pubTime": "1640773133074",
+        "source": "Cricbuzz",
+        "storyType": "Reports",
+        "imageId": 221968,
+        "seoHeadline": "India stretch lead past 200 in slow-moving session",
+        "context": "India tour of South Africa, 2021-22",
+        "coverImage": {
+          "id": "221968",
+          "caption": "Virat Kohli was unbeaten at Lunch along with Cheteshwar Pujara",
+          "source": "AFP"
+        }
+      }
+    },
+    {
+      "story": {
+        "id": 120401,
+        "hline": "Rahul, Mayank see out early Centurion intrigue",
+        "intro": "The Indian openers dealt with the challenges of the conditions in the morning session to pave the way for a day of dominance",
+        "pubTime": "1640541860899",
+        "source": "Cricbuzz",
+        "storyType": "Match Features",
+        "imageId": 221576,
+        "seoHeadline": "Rahul, Mayank see out early Centurion intrigue, India cricket tour of South Africa, 2021-22",
+        "context": "India tour of South Africa, 2021-22",
+        "coverImage": {
+          "id": "221576",
+          "caption": "A 117-run opening stand provided the platform for India to take the Day 1 honours",
+          "source": "AFP"
+        }
+      }
+    }
+  ],
+  "lastUpdatedTime": "1650937181551",
+  "appIndex": {
+    "seoTitle": "KL Rahul latest and breaking cricket news - Cricbuzz | Cricbuzz.com",
+    "webURL": "http://www.cricbuzz.com/cricket-team/8733/kl-rahul/news"
+  }
+}
