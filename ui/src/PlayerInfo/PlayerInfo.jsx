@@ -426,17 +426,24 @@ const PlayerInfoComponent = () => {
 };
 
 // Mount the component
-console.log('🔍 Looking for #player-info-root...');
+console.log('🔍 Looking for mount point...');
 
 function mountWidget() {
-  const root = document.getElementById('player-info-root');
-  if (root) {
-    console.log('✅ Found mount point, rendering...');
-    createRoot(root).render(<PlayerInfoComponent />);
-    console.log('🎉 Component mounted!');
-  } else {
-    console.error('❌ Mount point #player-info-root not found!');
+  // Try multiple mount points for flexibility
+  const mountPoints = ['component-root', 'player-info-root'];
+  let root = null;
+  
+  for (const id of mountPoints) {
+    root = document.getElementById(id);
+    if (root) {
+      console.log(`✅ Found mount point #${id}, rendering...`);
+      createRoot(root).render(<PlayerInfoComponent />);
+      console.log('🎉 Component mounted!');
+      return;
+    }
   }
+  
+  console.error('❌ No mount point found! Looking for:', mountPoints.join(', '));
 }
 
 // Mount when DOM is ready

@@ -3,75 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Chat - Player Info Widget</title>
+    <title>Cricket Chat - Component Tester</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
         #app {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         .header {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 12px;
             margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .header h1 {
-            margin: 0;
+            margin: 0 0 10px 0;
             color: #667eea;
+            font-size: 32px;
+        }
+        .header p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .component-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .component-btn {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .component-btn:hover {
+            background: #f0f2ff;
+        }
+        .component-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 12px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
         .widget-container {
             background: white;
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-height: 400px;
+        }
+        .examples {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e9ecef;
+        }
+        .examples h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        .example-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .example-btn {
+            padding: 8px 16px;
+            border: 1px solid #667eea;
+            border-radius: 6px;
+            background: #f8f9ff;
+            color: #667eea;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .example-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
     <div id="app">
+        <!-- Header -->
         <div class="header">
-            <h1>🏏 Cricket Chat - Player Info Widget</h1>
-            <p>Testing the widget component locally</p>
+            <h1>🏏 Cricket Chat - Component Tester</h1>
+            <p>Test and preview UI components with custom JSON data from the dist folder</p>
         </div>
         
+        <!-- Component Selection & Data Input -->
+        <div class="controls">
+            <h3>Select Component</h3>
+            <div class="component-selector">
+                <button class="component-btn active" onclick="selectComponent('player-info')">
+                    👤 Player Info
+                </button>
+                <button class="component-btn" onclick="selectComponent('batting-info')">
+                    🏏 Batting Statistics
+                </button>
+            </div>
+
+            <h3>JSON Input</h3>
+            <textarea 
+                id="json-input" 
+                placeholder='Paste JSON data here...'
+            ></textarea>
+            
+            <div class="action-buttons">
+                <button onclick="loadData()" class="btn-primary">
+                    ▶️ Load & Render
+                </button>
+                <button onclick="clearData()" class="btn-danger">
+                    🗑️ Clear
+                </button>
+                <button onclick="formatJSON()" class="btn-secondary">
+                    ✨ Format JSON
+                </button>
+            </div>
+
+            <!-- Example Data Buttons -->
+            <div class="examples">
+                <h4>📋 Load Example Data:</h4>
+                <div class="example-buttons" id="example-buttons">
+                    <!-- Will be populated based on selected component -->
+                </div>
+            </div>
+
+            <div id="status" class="status"></div>
+        </div>
+        
+        <!-- Widget Render Area -->
         <div class="widget-container">
-            <!-- Widget will render here -->
-            <div id="player-info-root"></div>
+            <div id="component-root"></div>
         </div>
     </div>
-
+    
     <script>
-        // Simulate the widget script from widgets.py
-        const root = document.getElementById('player-info-root');
-        
-        // Create and append h1
-        const heading = document.createElement('h1');
-        heading.style.color = 'blue';
-        heading.textContent = 'TEST WIDGET';
-        root.appendChild(heading);
-        
-        // Create and append paragraph
-        const para = document.createElement('p');
-        para.textContent = 'Elements appended successfully!';
-        root.appendChild(para);
-        
-        // Create and append a styled div
-        const div = document.createElement('div');
-        div.style.background = '#f0f0f0';
-        div.style.padding = '10px';
-        div.style.border = '2px solid green';
-        div.innerHTML = '<strong>Status:</strong> Widget is working! ✓';
-        root.appendChild(div);
-        
-        console.log('Widget loaded and rendered!');
+        let currentComponent = 'player-info';
+        let currentScript = null;
+
+        // Example data for different components
+        const exampleData = {
+            'player-info': {
+                'KL Rahul': {
+                    "id": 8733,
+                    "name": "KL Rahul",
+                    "intlTeam": "India",
+                    "image": "https://example.com/kl-rahul.jpg",
+                    "role": "Batsman",
+                    "bat": "Right Handed Bat",
+                    "bowl": "Right-arm offbreak",
+                    "DoB": "Apr 18, 1992",
+                    "birthPlace": "Bangalore"
+                },
+                'Virat Kohli': {
+                    "id": 253802,
+                    "name": "Virat Kohli",
+                    "intlTeam": "India",
+                    "image": "https://example.com/virat-kohli.jpg",
+                    "role": "Batsman",
+                    "bat": "Right Handed Bat",
+                    "bowl": "Right-arm medium",
+                    "DoB": "Nov 05, 1988",
+                    "birthPlace": "Delhi"
+                }
+            },
+            'batting-info': {
+                'KL Rahul Stats': {
+                    "headers": ["ROWHEADER", "Test", "ODI", "T20", "IPL"],
+                    "values": [
+                        {"values": ["Matches", "43", "42", "56", "102"]},
+                        {"values": ["Innings", "74", "41", "52", "93"]},
+                        {"values": ["Runs", "2547", "1634", "1831", "3641"]},
+                        {"values": ["Balls", "4833", "1844", "1285", "2649"]},
+                        {"values": ["Highest", "199", "112", "110", "132"]},
+                        {"values": ["Average", "35.38", "46.69", "40.69", "48.55"]},
+                        {"values": ["SR", "52.7", "88.61", "142.49", "137.45"]},
+                        {"values": ["Not Out", "2", "6", "7", "18"]},
+                        {"values": ["Fours", "309", "124", "164", "315"]},
+                        {"values": ["Sixes", "17", "38", "73", "149"]},
+                        {"values": ["Ducks", "7", "2", "4", "3"]},
+                        {"values": ["50s", "13", "10", "16", "28"]},
+                        {"values": ["100s", "7", "5", "2", "4"]},
+                        {"values": ["200s", "0", "0", "0", "0"]}
+                    ],
+                    "seriesSpinner": [
+                        {"seriesName": "Career"},
+                        {"seriesId": 4061, "seriesName": "IPL 2022"}
+                    ]
+                },
+                'Sample Player Stats': {
+                    "headers": ["ROWHEADER", "Test", "ODI", "T20"],
+                    "values": [
+                        {"values": ["Matches", "100", "200", "150"]},
+                        {"values": ["Runs", "5000", "8000", "4500"]},
+                        {"values": ["Average", "45.5", "52.3", "38.9"]},
+                        {"values": ["SR", "55.2", "92.5", "145.6"]},
+                        {"values": ["100s", "15", "25", "5"]},
+                        {"values": ["50s", "30", "45", "35"]}
+                    ],
+                    "seriesSpinner": [{"seriesName": "Career"}]
+                }
+            }
+        };
+
+        // Initialize window.openai object
+        if (!window.openai) {
+            window.openai = {};
+        }
+
+        function selectComponent(component) {
+            currentComponent = component;
+            
+            // Update button states
+            document.querySelectorAll('.component-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update example buttons
+            updateExampleButtons();
+            
+            // Clear current display
+            clearData();
+            
+            // Load the appropriate component script
+            loadComponentScript();
+            
+            showStatus(`✅ Selected: ${component === 'player-info' ? 'Player Info' : 'Batting Statistics'}`, 'info');
+        }
+
+        function updateExampleButtons() {
+            const container = document.getElementById('example-buttons');
+            const examples = exampleData[currentComponent];
+            
+            container.innerHTML = '';
+            Object.keys(examples).forEach(name => {
+                const btn = document.createElement('button');
+                btn.className = 'example-btn';
+                btn.textContent = name;
+                btn.onclick = () => loadExampleData(name);
+                container.appendChild(btn);
+            });
+        }
+
+        function loadExampleData(exampleName) {
+            const data = exampleData[currentComponent][exampleName];
+            document.getElementById('json-input').value = JSON.stringify(data, null, 2);
+            showStatus(`📋 Loaded example: ${exampleName}`, 'info');
+        }
+
+        function loadComponentScript() {
+            // Remove old script if exists
+            if (currentScript) {
+                currentScript.remove();
+                currentScript = null;
+            }
+            
+            // Clear the component root
+            const root = document.getElementById('component-root');
+            root.innerHTML = '';
+            
+            // Load new script
+            const scriptPath = currentComponent === 'player-info' 
+                ? './dist/player-info.js' 
+                : './dist/player-batting-info.js';
+            
+            currentScript = document.createElement('script');
+            currentScript.type = 'module';
+            currentScript.src = scriptPath;
+            currentScript.onerror = () => {
+                showStatus(`❌ Failed to load ${scriptPath}. Make sure to run 'npm run build' first!`, 'error');
+            };
+            currentScript.onload = () => {
+                console.log(`✅ Loaded ${scriptPath}`);
+            };
+            document.body.appendChild(currentScript);
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.textContent = message;
+            status.className = `status ${type}`;
+            
+            if (type === 'success' || type === 'info') {
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function loadData() {
+            const input = document.getElementById('json-input').value.trim();
+            
+            if (!input) {
+                showStatus('❌ Please paste JSON data first', 'error');
+                return;
+            }
+            
+            try {
+                const data = JSON.parse(input);
+                
+                // Set the data in window.openai
+                window.openai.toolOutput = data;
+                
+                // Dispatch event to notify React components
+                window.dispatchEvent(new CustomEvent('openai:set_globals', {
+                    detail: { globals: { toolOutput: data } }
+                }));
+                
+                showStatus('✅ Data loaded successfully! Component rendered below.', 'success');
+                console.log('📊 Data loaded:', data);
+                
+            } catch (error) {
+                showStatus('❌ Invalid JSON: ' + error.message, 'error');
+                console.error('JSON parse error:', error);
+            }
+        }
+
+        function clearData() {
+            window.openai.toolOutput = null;
+            
+            window.dispatchEvent(new CustomEvent('openai:set_globals', {
+                detail: { globals: { toolOutput: null } }
+            }));
+            
+            document.getElementById('json-input').value = '';
+            document.getElementById('component-root').innerHTML = '';
+            
+            showStatus('🔄 Data cleared. Component reset.', 'info');
+        }
+
+        function formatJSON() {
+            const input = document.getElementById('json-input').value.trim();
+            
+            if (!input) {
+                showStatus('❌ No JSON to format', 'error');
+                return;
+            }
+            
+            try {
+                const data = JSON.parse(input);
+                document.getElementById('json-input').value = JSON.stringify(data, null, 2);
+                showStatus('✨ JSON formatted successfully', 'success');
+            } catch (error) {
+                showStatus('❌ Cannot format invalid JSON: ' + error.message, 'error');
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateExampleButtons();
+            loadComponentScript();
+            console.log('🎯 Component Tester Ready');
+            console.log('📝 Select a component and paste JSON data to test');
+        });
     </script>
+    
+    <!-- Load React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 </body>
 </html>
