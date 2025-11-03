@@ -1,0 +1,130 @@
+{
+  "rank": [
+    {
+      "id": "8019",
+      "rank": "1",
+      "name": "Joe Root",
+      "country": "England",
+      "rating": "908",
+      "points": "908",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "717792",
+      "countryId": "9"
+    },
+    {
+      "id": "12201",
+      "rank": "2",
+      "name": "Harry Brook",
+      "country": "England",
+      "rating": "868",
+      "points": "868",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "717793",
+      "countryId": "9"
+    },
+    {
+      "id": "6326",
+      "rank": "3",
+      "name": "Kane Williamson",
+      "country": "New Zealand",
+      "rating": "850",
+      "points": "850",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "616418",
+      "countryId": "13"
+    },
+    {
+      "id": "2250",
+      "rank": "4",
+      "name": "Steven Smith",
+      "country": "Australia",
+      "rating": "816",
+      "points": "816",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "619873",
+      "countryId": "4"
+    },
+    {
+      "id": "13940",
+      "rank": "5",
+      "name": "Yashasvi Jaiswal",
+      "country": "India",
+      "rating": "791",
+      "difference": 2,
+      "points": "791",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Up",
+      "faceImageId": "591942",
+      "countryId": "2"
+    },
+    {
+      "id": "10940",
+      "rank": "6",
+      "name": "Kamindu Mendis",
+      "country": "Sri Lanka",
+      "rating": "781",
+      "points": "781",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "717697",
+      "countryId": "5"
+    },
+    {
+      "id": "8583",
+      "rank": "7",
+      "name": "Temba Bavuma",
+      "country": "South Africa",
+      "rating": "774",
+      "difference": -2,
+      "points": "774",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Down",
+      "faceImageId": "619857",
+      "countryId": "11"
+    },
+    {
+      "id": "10744",
+      "rank": "8",
+      "name": "Rishabh Pant",
+      "country": "India",
+      "rating": "753",
+      "points": "753",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "616524",
+      "countryId": "2"
+    },
+    {
+      "id": "10713",
+      "rank": "9",
+      "name": "Daryl Mitchell",
+      "country": "New Zealand",
+      "rating": "748",
+      "points": "748",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "616424",
+      "countryId": "13"
+    },
+    {
+      "id": "8502",
+      "rank": "10",
+      "name": "Ben Duckett",
+      "country": "England",
+      "rating": "747",
+      "points": "747",
+      "lastUpdatedOn": "2025-11-03",
+      "trend": "Flat",
+      "faceImageId": "717790",
+      "countryId": "9"
+    }
+  ],
+  "appIndex": {
+    "seoTitle": "ICC Cricket Rankings - Top 100 Batter | Cricbuzz.com",
+    "webURL": "www.cricbuzz.com/cricket-stats/icc-rankings"
+  }
+}

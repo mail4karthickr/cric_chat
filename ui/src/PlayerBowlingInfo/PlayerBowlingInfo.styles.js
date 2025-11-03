@@ -3,13 +3,16 @@ import theme from '../theme';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 680px;
+  max-width: 500px;
   margin: 0 auto;
-  padding: ${theme.spacing.xl};
+  padding: ${theme.spacing.sm};
+  padding-bottom: ${theme.spacing.xl};
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background: ${theme.gradients.primary};
   border-radius: ${theme.borderRadius.large};
   box-shadow: ${theme.shadows.xlarge};
+  min-height: 80px;
+  overflow: visible;
   
   * {
     user-select: none !important;
@@ -91,7 +94,7 @@ export const SeriesButton = styled.button`
 
 export const TableWrapper = styled.div`
   overflow-x: auto;
-  background: ${theme.colors.white};
+  background: ${theme.gradients.card};
   border-radius: ${theme.borderRadius.medium};
   box-shadow: ${theme.shadows.large};
   

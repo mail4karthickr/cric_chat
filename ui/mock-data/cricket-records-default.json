@@ -1,0 +1,146 @@
+{
+  "filter": {
+    "matchtype": [
+      {
+        "matchTypeId": "1",
+        "matchTypeDesc": "test"
+      },
+      {
+        "matchTypeId": "2",
+        "matchTypeDesc": "odi"
+      },
+      {
+        "matchTypeId": "3",
+        "matchTypeDesc": "t20"
+      }
+    ],
+    "team": [
+      {
+        "id": "2",
+        "teamShortName": "IND"
+      },
+      {
+        "id": "4",
+        "teamShortName": "AUS"
+      },
+      {
+        "id": "9",
+        "teamShortName": "ENG"
+      }
+    ],
+    "selectedMatchType": "test"
+  },
+  "headers": [
+    "Batter",
+    "HS",
+    "Balls",
+    "SR",
+    "Vs"
+  ],
+  "values": [
+    {
+      "values": [
+        "240",
+        "B Lara",
+        "400",
+        "582",
+        "68.73",
+        "ENG"
+      ]
+    },
+    {
+      "values": [
+        "157",
+        "M Hayden",
+        "380",
+        "437",
+        "86.96",
+        "ZIM"
+      ]
+    },
+    {
+      "values": [
+        "240",
+        "B Lara",
+        "375",
+        "538",
+        "69.70",
+        "ENG"
+      ]
+    },
+    {
+      "values": [
+        "101",
+        "Mahela",
+        "374",
+        "572",
+        "65.38",
+        "RSA"
+      ]
+    },
+    {
+      "values": [
+        "11200",
+        "Mulder",
+        "367",
+        "334",
+        "109.88",
+        "ZIM"
+      ]
+    },
+    {
+      "values": [
+        "4160",
+        "G Sobers",
+        "365",
+        "",
+        "",
+        "PAK"
+      ]
+    },
+    {
+      "values": [
+        "5141",
+        "S Hutton",
+        "364",
+        "847",
+        "42.98",
+        "AUS"
+      ]
+    },
+    {
+      "values": [
+        "102",
+        "S Jayasuriya",
+        "340",
+        "578",
+        "58.82",
+        "IND"
+      ]
+    },
+    {
+      "values": [
+        "5759",
+        "H Mohammad",
+        "337",
+        "",
+        "",
+        "WI"
+      ]
+    },
+    {
+      "values": [
+        "5074",
+        "W Hammond",
+        "336",
+        "",
+        "",
+        "NZ"
+      ]
+    }
+  ],
+  "appIndex": {
+    "seoTitle": "Live cricket scores, schedule, news, archive, series | Cricbuzz.com",
+    "webURL": "www.cricbuzz.com"
+  }
+}

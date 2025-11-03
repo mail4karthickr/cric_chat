@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { useToolOutput } from '../hooks';
-import PlayerImage from './PlayerImage';
+import { useToolOutput } from '../hooks.js';
+import PlayerImage from '../common/PlayerImage.jsx';
 import {
   Container,
   LoadingContainer,
@@ -85,8 +85,8 @@ const PlayerInfoComponent = () => {
               height: '128px',
               borderRadius: '50%',
               objectFit: 'cover',
-              border: '4px solid #006385',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+              border: 'none',
+              boxShadow: 'none',
               flexShrink: 0,
             }}
           />

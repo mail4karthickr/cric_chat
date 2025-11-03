@@ -8,6 +8,7 @@ from pydantic import ValidationError
 
 import mcp.types as types
 from cric_buzz_service.players_api import PlayersAPI
+from cric_buzz_service.stats_api import StatsAPI, FormatType, RankingCategory
 from schemas import (
     GetPlayerInfoInput,
     SearchPlayerInput,
@@ -15,6 +16,8 @@ from schemas import (
     GetPlayerBowlingInput,
     GetPlayerBattingInput,
     GetPlayerNewsInput,
+    GetRankingsInput,
+    GetRecordsInput,
     get_schemas,
 )
 from widgets import widgets, _tool_meta
@@ -61,6 +64,24 @@ def get_tool_definitions() -> List[types.Tool]:
         )
     )
     
+    logger.info("✅ Registering non-widget tool: get-record-filters")
+    tools.append(
+        types.Tool(
+            name="get-record-filters",
+            description=(
+                "Get available statistics filters and record types from Cricbuzz. "
+                "Returns available stats types (like 'mostRuns', 'mostWickets', etc.), years, teams, and match types. "
+                "Use this to discover what filters are available before calling get-records. "
+                "This is a metadata endpoint to help construct valid get-records queries."
+            ),
+            inputSchema=SCHEMAS["get-record-filters"],
+        )
+    )
+    
+    # Note: get-rankings is now a widget-based tool (registered above with UI support)
+    # Note: get-records will be a widget-based tool (UI component to be created)
+    # Note: get-icc-standings has been removed (not needed)
+    
     logger.info(f"📋 Total tools registered: {len(tools)}")
     return tools
 
@@ -98,6 +119,15 @@ async def handle_tool_call(req: types.CallToolRequest) -> types.ServerResult:
             return await _handle_get_player_news(arguments)
         elif tool_name == "get-trending-players":
             return await _handle_get_trending_players()
+        elif tool_name == "get-rankings":
+            logger.info("   Routing to: _handle_get_rankings")
+            return await _handle_get_rankings(arguments)
+        elif tool_name == "get-records":
+            logger.info("   Routing to: _handle_get_records")
+            return await _handle_get_records(arguments)
+        elif tool_name == "get-record-filters":
+            logger.info("   Routing to: _handle_get_record_filters")
+            return await _handle_get_record_filters()
         else:
             return _create_error_result(f"Unknown tool: {tool_name}")
     
@@ -242,6 +272,90 @@ async def _handle_get_trending_players() -> types.ServerResult:
             structuredContent=trending_players,
         )
     )
+
+
+async def _handle_get_rankings(arguments: dict) -> types.ServerResult:
+    """Handle get-rankings tool."""
+    logger.info("📊 Handling get-rankings request")
+    payload = GetRankingsInput.model_validate(arguments)
+    logger.debug(f"   Category: {payload.category}, Format: {payload.format_type}, Women: {payload.is_women}")
+    
+    # Convert string values to enums
+    category = RankingCategory(payload.category)
+    format_type = FormatType(payload.format_type)
+    
+    async with StatsAPI() as api:
+        rankings = await api.get_rankings(
+            category=category,
+            format_type=format_type,
+            is_women=payload.is_women
+        )
+    
+    logger.info(f"✅ Rankings retrieved successfully")
+    
+    gender = "Women's" if payload.is_women else "Men's"
+    format_name = payload.format_type.upper()
+    category_name = payload.category.capitalize()
+    
+    return types.ServerResult(
+        types.CallToolResult(
+            content=[types.TextContent(
+                type="text",
+                text=f"Successfully retrieved {gender} {format_name} {category_name} rankings."
+            )],
+            structuredContent=rankings,
+        )
+    )
+
+
+async def _handle_get_records(arguments: dict) -> types.ServerResult:
+    """Handle get-records tool."""
+    logger.info("📊 Handling get-records request")
+    payload = GetRecordsInput.model_validate(arguments)
+    logger.debug(f"   Stats Type: {payload.stats_type}, Year: {payload.year}, Match Type: {payload.match_type}")
+    
+    async with StatsAPI() as api:
+        records = await api.get_records(
+            stats_type=payload.stats_type,
+            year=payload.year,
+            match_type=payload.match_type,
+            team=payload.team,
+            opponent=payload.opponent
+        )
+    
+    logger.info(f"✅ Records retrieved successfully")
+    
+    return types.ServerResult(
+        types.CallToolResult(
+            content=[types.TextContent(
+                type="text",
+                text=f"Successfully retrieved {payload.stats_type} records."
+            )],
+            structuredContent=records,
+        )
+    )
+
+
+async def _handle_get_record_filters() -> types.ServerResult:
+    """Handle get-record-filters tool."""
+    logger.info("📊 Handling get-record-filters request")
+    
+    async with StatsAPI() as api:
+        filters = await api.get_record_filters()
+    
+    logger.info(f"✅ Record filters retrieved successfully")
+    
+    return types.ServerResult(
+        types.CallToolResult(
+            content=[types.TextContent(
+                type="text",
+                text="Successfully retrieved available record filters and statistics types."
+            )],
+            structuredContent=filters,
+        )
+    )
+
+
 
 
 # Helper functions

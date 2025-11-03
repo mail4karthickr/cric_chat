@@ -166,8 +166,13 @@ async def read_resource_handler(req: types.ReadResourceRequest) -> types.ServerR
 
     sys.stderr.write(f"✅ CRICKET CHAT: Widget FOUND - {widget.title}\n")
     sys.stderr.write(f"   Widget ID: {widget.identifier}\n")
-    sys.stderr.write(f"   HTML Size: {len(widget.html)} chars\n")
-    sys.stderr.write(f"   Has <div id='root'>: {'YES' if 'id=\"root\"' in widget.html else 'NO'}\n")
+    sys.stderr.write("📤 CRICKET CHAT: Loading widget HTML (lazy-load)...\n")
+    
+    # Lazy-load the HTML content
+    widget_html = widget.get_html()
+    
+    sys.stderr.write(f"   HTML Size: {len(widget_html)} chars\n")
+    sys.stderr.write(f"   Has root div: {'YES' if f'id=\"{widget.root_id}\"' in widget_html else 'NO'}\n")
     sys.stderr.write("📤 CRICKET CHAT: Sending widget HTML to ChatGPT...\n")
     sys.stderr.write("=" * 80 + "\n\n")
     sys.stderr.flush()
@@ -176,9 +181,10 @@ async def read_resource_handler(req: types.ReadResourceRequest) -> types.ServerR
     logger.info(f"   Widget Title: {widget.title}")
     logger.info(f"   Widget Identifier: {widget.identifier}")
     logger.debug(f"   Widget Template URI: {widget.template_uri}")
-    logger.debug(f"   Widget HTML length: {len(widget.html)} characters")
+    logger.debug(f"   Lazy-loading widget HTML...")
+    logger.debug(f"   Widget HTML length: {len(widget_html)} characters")
     logger.debug(f"   Widget HTML preview (first 200 chars):")
-    logger.debug(f"   {widget.html[:200]}...")
+    logger.debug(f"   {widget_html[:200]}...")
     
     # Build response contents
     logger.debug("   Building TextResourceContents...")
@@ -186,7 +192,7 @@ async def read_resource_handler(req: types.ReadResourceRequest) -> types.ServerR
         types.TextResourceContents(
             uri=widget.template_uri,
             mimeType=MIME_TYPE,
-            text=widget.html,
+            text=widget_html,
             _meta=_tool_meta(widget),
         )
     ]
@@ -195,7 +201,7 @@ async def read_resource_handler(req: types.ReadResourceRequest) -> types.ServerR
     logger.info(f"   Content for widget: {widget.title}")
     logger.debug(f"   Content URI: {widget.template_uri}")
     logger.debug(f"   Content mimeType: {MIME_TYPE}")
-    logger.debug(f"   Content text length: {len(widget.html)} bytes")
+    logger.debug(f"   Content text length: {len(widget_html)} bytes")
     logger.debug(f"   Content meta: {_tool_meta(widget)}")
     logger.info("📖 read_resource_handler completed successfully")
     logger.info("=" * 80)

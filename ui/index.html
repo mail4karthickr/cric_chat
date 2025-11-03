@@ -182,6 +182,18 @@
                 <button class="component-btn" onclick="selectComponent('player-news')">
                     📰 Player News
                 </button>
+                <button class="component-btn" onclick="selectComponent('player-career')">
+                    🎯 Player Career
+                </button>
+                <button class="component-btn" onclick="selectComponent('trending-players')">
+                    🔥 Trending Players
+                </button>
+                <button class="component-btn" onclick="selectComponent('icc-rankings')">
+                    🏆 ICC Rankings
+                </button>
+                <button class="component-btn" onclick="selectComponent('cricket-records')">
+                    📊 Cricket Records
+                </button>
             </div>
 
             <h3>JSON Input</h3>
@@ -211,6 +223,10 @@
             <div id="player-batting-root" style="display: none;"></div>
             <div id="player-bowling-root" style="display: none;"></div>
             <div id="player-news-root" style="display: none;"></div>
+            <div id="player-career-root" style="display: none;"></div>
+            <div id="trending-players-root" style="display: none;"></div>
+            <div id="icc-rankings-root" style="display: none;"></div>
+            <div id="cricket-records-root" style="display: none;"></div>
         </div>
     </div>
     
@@ -261,7 +277,11 @@
                 'player-info': 'Player Info',
                 'batting-info': 'Batting Statistics',
                 'bowling-info': 'Bowling Statistics',
-                'player-news': 'Player News'
+                'player-news': 'Player News',
+                'player-career': 'Player Career',
+                'trending-players': 'Trending Players',
+                'icc-rankings': 'ICC Rankings',
+                'cricket-records': 'Cricket Records'
             };
             
             showStatus(`✅ Selected: ${componentNames[component]}`, 'info');
@@ -273,7 +293,11 @@
                 'player-info': 'player-info-root',
                 'batting-info': 'player-batting-root',
                 'bowling-info': 'player-bowling-root',
-                'player-news': 'player-news-root'
+                'player-news': 'player-news-root',
+                'player-career': 'player-career-root',
+                'trending-players': 'trending-players-root',
+                'icc-rankings': 'icc-rankings-root',
+                'cricket-records': 'cricket-records-root'
             };
             
             const rootId = rootMap[currentComponent];
@@ -306,7 +330,11 @@
                 'player-info': './dist/player-info.js',
                 'batting-info': './dist/player-batting-info.js',
                 'bowling-info': './dist/player-bowling-info.js',
-                'player-news': './dist/player-news.js'
+                'player-news': './dist/player-news.js',
+                'player-career': './dist/player-career.js',
+                'trending-players': './dist/trending-players.js',
+                'icc-rankings': './dist/icc-rankings.js',
+                'cricket-records': './dist/cricket-records.js'
             };
             
             const scriptPath = scriptMap[currentComponent];
@@ -377,7 +405,9 @@
                 'player-info': 'player-info-root',
                 'batting-info': 'player-batting-root',
                 'bowling-info': 'player-bowling-root',
-                'player-news': 'player-news-root'
+                'player-news': 'player-news-root',
+                'player-career': 'player-career-root',
+                'trending-players': 'trending-players-root'
             };
             
             // Clear the root element for the current component

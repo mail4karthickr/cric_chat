@@ -12,13 +12,21 @@ import React from 'react';
  * @param {string} props.alt - Alt text for the image
  * @param {Object} props.style - Custom styles for the image
  * @param {string} props.className - Custom CSS class
+ * @param {string} props.size - Size preset: 'small' (60px), 'medium' (120px), 'large' (180px), or custom
+ * @param {boolean} props.rounded - Whether to apply border-radius
+ * @param {string} props.objectFit - CSS object-fit value: 'cover', 'contain', 'fill', 'none', 'scale-down'
+ * @param {string} props.objectPosition - CSS object-position value (e.g., 'center center', 'center top')
  */
 const PlayerImage = ({ 
   faceImageId, 
   fallbackUrl, 
   alt = 'Player Image', 
   style = {},
-  className = '' 
+  className = '',
+  size = 'medium',
+  rounded = false,
+  objectFit = 'contain',
+  objectPosition = 'center center'
 }) => {
   const [imageUrl, setImageUrl] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -89,13 +97,22 @@ const PlayerImage = ({
     };
   }, [faceImageId, fallbackUrl]);
 
+  // Size presets
+  const sizeMap = {
+    small: '60px',
+    medium: '120px',
+    large: '180px'
+  };
+
+  const imageSize = sizeMap[size] || size;
+
   // Default styles
   const defaultStyle = {
-    width: '120px',
-    height: '120px',
-    objectFit: 'cover',
-    objectPosition: 'center top',
-    borderRadius: '0',
+    width: imageSize,
+    height: imageSize,
+    objectFit: objectFit,
+    objectPosition: objectPosition,
+    borderRadius: rounded ? '50%' : '0',
     backgroundColor: '#ffffff',
     display: 'block',
     ...style
@@ -115,7 +132,7 @@ const PlayerImage = ({
         }}
         className={className}
       >
-        <div style={{ fontSize: '24px' }}>🏏</div>
+        <div style={{ fontSize: size === 'small' ? '16px' : size === 'large' ? '32px' : '24px' }}>🏏</div>
       </div>
     );
   }
@@ -134,7 +151,7 @@ const PlayerImage = ({
         }}
         className={className}
       >
-        <div style={{ fontSize: '24px' }}>👤</div>
+        <div style={{ fontSize: size === 'small' ? '16px' : size === 'large' ? '32px' : '24px' }}>👤</div>
       </div>
     );
   }

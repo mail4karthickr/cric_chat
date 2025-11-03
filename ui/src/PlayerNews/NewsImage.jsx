@@ -91,9 +91,9 @@ const NewsImage = ({
   // Default styles
   const defaultStyle = {
     width: '100%',
-    height: '200px',
+    height: '140px',
     objectFit: 'cover',
-    objectPosition: 'center',
+    objectPosition: 'center top',
     borderRadius: '12px 12px 0 0',
     backgroundColor: '#f0f0f0',
     display: 'block',
@@ -158,17 +158,21 @@ const NewsImage = ({
       />
       {(caption || source) && (
         <div style={{
-          padding: '12px 16px',
+          padding: '8px 12px',
           backgroundColor: '#F9FAFB',
           borderTop: '1px solid #E5E7EB',
-          fontSize: '12px',
-          lineHeight: '1.5'
+          fontSize: '11px',
+          lineHeight: '1.4'
         }}>
           {caption && (
             <div style={{
               color: '#374151',
-              marginBottom: source ? '6px' : '0',
-              fontWeight: '400'
+              marginBottom: source ? '4px' : '0',
+              fontWeight: '400',
+              display: '-webkit-box',
+              WebkitLineClamp: '2',
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden'
             }}>
               {caption}
             </div>
@@ -176,12 +180,12 @@ const NewsImage = ({
           {source && (
             <div style={{
               color: '#6B7280',
-              fontSize: '11px',
+              fontSize: '10px',
               display: 'flex',
               alignItems: 'center',
               gap: '4px'
             }}>
-              <span style={{ fontSize: '10px' }}>📷</span>
+              <span style={{ fontSize: '9px' }}>📷</span>
               <span>{source}</span>
             </div>
           )}

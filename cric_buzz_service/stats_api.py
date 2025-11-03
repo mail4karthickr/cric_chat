@@ -91,6 +91,91 @@ class StatsAPI(BaseCricBuzzClient):
         
         return self._handle_response(response, f"get_{category.value}_rankings")
     
+    async def get_record_filters(self) -> dict:
+        """
+        Get top stats and record filters from Cricbuzz
+        
+        Returns:
+            dict: Top statistics and available record filters
+            
+        Raises:
+            DataIsEmpty: When API returns empty data
+            APINotSubscribed: When API key is not subscribed
+            RateLimitExceeded: When rate limit is exceeded
+            CricBuzzAPIError: For other errors
+            
+        Example:
+            >>> async with StatsAPI() as api:
+            >>>     filters = await api.get_record_filters()
+            >>>     print(filters)
+        """
+        # Make the API request
+        response = await self._client.get('/stats/v1/topstats')
+        
+        return self._handle_response(response, "get_record_filters")
+    
+    async def get_records(
+        self,
+        stats_type: str,
+        year: Optional[str] = None,
+        match_type: Optional[int] = None,
+        team: Optional[int] = None,
+        opponent: Optional[int] = None
+    ) -> dict:
+        """
+        Get cricket records and statistics based on various filters
+        
+        Args:
+            stats_type: Type of statistic (e.g., 'mostRuns', 'mostWickets', 'mostSixes', etc.)
+            year: Year to filter records (optional)
+            match_type: Match type ID to filter records (optional, default: 0)
+            team: Team ID to filter records (optional, default: 0)
+            opponent: Opponent team ID to filter records (optional, default: 0)
+            
+        Returns:
+            dict: Records data containing player statistics
+            
+        Raises:
+            DataIsEmpty: When API returns empty data
+            APINotSubscribed: When API key is not subscribed
+            RateLimitExceeded: When rate limit is exceeded
+            CricBuzzAPIError: For other errors
+            
+        Example:
+            >>> async with StatsAPI() as api:
+            >>>     # Get most runs records
+            >>>     records = await api.get_records(stats_type="mostRuns")
+            >>>     
+            >>>     # Get most wickets for a specific year and team
+            >>>     records = await api.get_records(
+            >>>         stats_type="mostWickets",
+            >>>         year="2023",
+            >>>         team=1
+            >>>     )
+        """
+        # Build query parameters
+        params = {
+            "statsType": stats_type
+        }
+        
+        # Add optional parameters if provided
+        if year is not None:
+            params["year"] = year
+        if match_type is not None:
+            params["matchType"] = str(match_type)
+        if team is not None:
+            params["team"] = str(team)
+        if opponent is not None:
+            params["opponent"] = str(opponent)
+        
+        # Make the API request - all parameters are query params, no path parameter
+        response = await self._client.get(
+            '/stats/v1/topstats',
+            params=params
+        )
+        
+        return self._handle_response(response, f"get_records_{stats_type}")
+    
     async def get_icc_standings(
         self,
         match_type: MatchType,

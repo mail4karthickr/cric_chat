@@ -2,13 +2,16 @@ import styled from 'styled-components';
 import theme from '../theme';
 
 export const Container = styled.div`
-  max-width: 1024px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: ${theme.spacing.xxl};
+  padding: ${theme.spacing.md};
+  padding-bottom: ${theme.spacing.xl};
   background: ${theme.gradients.primary};
   border-radius: ${theme.borderRadius.large};
   box-shadow: ${theme.shadows.xlarge};
   color: ${theme.colors.textLight};
+  min-height: 80px;
+  overflow: visible;
 `;
 
 export const LoadingContainer = styled.div`
@@ -17,9 +20,11 @@ export const LoadingContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: ${theme.spacing.md};
+  padding-bottom: ${theme.spacing.lg};
   text-align: center;
   color: ${theme.colors.textLight};
-  font-size: ${theme.fontSize.sm};
+  font-size: ${theme.fontSize.xs};
+  min-height: 50px;
 `;
 
 export const Card = styled.div`
@@ -27,12 +32,12 @@ export const Card = styled.div`
   box-shadow: ${theme.shadows.large};
   padding: ${theme.spacing.xxl};
   margin-bottom: ${theme.spacing.xxl};
-  background-color: ${theme.colors.white};
+  background: ${theme.gradients.card};
   color: ${theme.colors.textDark};
 `;
 
 export const HeaderCard = styled(Card)`
-  background: ${theme.colors.white};
+  background: ${theme.gradients.card};
 `;
 
 export const HeaderContent = styled.div`

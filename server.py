@@ -89,13 +89,14 @@ def configure_app(mcp: FastMCP):
 def print_startup_banner():
     """Print server startup information."""
     print("=" * 60)
-    print("🏏 Cricket Chat MCP Server - Player Tools Only")
+    print("🏏 Cricket Chat MCP Server")
     print("=" * 60)
     print("\n📍 Endpoints:")
     print(f"  • MCP:    http://{SERVER_HOST}:{SERVER_PORT}{SSE_PATH}")
     print(f"  • Health: http://{SERVER_HOST}:{SERVER_PORT}/health")
     print(f"  • Info:   http://{SERVER_HOST}:{SERVER_PORT}/info")
-    print("\n🛠️  Available Player Tools:")
+    print("\n🛠️  Available Tools:")
+    print("    Player Tools:")
     print("    • get-player-info - Get player profile and statistics")
     print("    • search-player - Search for players by name")
     print("    • get-player-career - Get comprehensive career stats")
@@ -103,6 +104,10 @@ def print_startup_banner():
     print("    • get-player-batting - Get detailed batting statistics")
     print("    • get-player-news - Get news articles for a player")
     print("    • get-trending-players - Get currently trending players")
+    print("\n    Stats & Rankings Tools:")
+    print("    • get-rankings - Get ICC rankings (batsmen, bowlers, allrounders, teams)")
+    print("    • get-records - Get cricket records with filters (most runs, wickets, etc.)")
+    print("    • get-record-filters - Get available statistics filters and record types")
     
     print(f"\n🎨 UI Widgets: {'Enabled' if HAS_UI else 'Disabled (build required)'}")
     if HAS_UI:
