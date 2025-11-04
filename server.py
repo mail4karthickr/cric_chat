@@ -86,8 +86,15 @@ def configure_app(mcp: FastMCP):
 # FastMCP Cloud will use this instance when deploying
 mcp = create_mcp_server()
 
-# Create app at module level for uvicorn compatibility
-app = configure_app(mcp)
+# For local development, create app lazily to avoid asyncio conflicts in cloud environments
+app = None
+
+def get_app():
+    """Get or create the app instance (for local development)"""
+    global app
+    if app is None:
+        app = configure_app(mcp)
+    return app
 
 
 def print_startup_banner():
@@ -129,11 +136,8 @@ def main():
     """Main entry point for the server."""
     print("\n🔧 Starting Cricket Chat MCP Server...\n")
     
-    # Create MCP server
-    mcp = create_mcp_server()
-    
-    # Configure application
-    app = configure_app(mcp)
+    # Get the app instance (will create if needed)
+    app = get_app()
     
     # Print startup information
     print_startup_banner()
