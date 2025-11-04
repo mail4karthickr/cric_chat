@@ -14,11 +14,16 @@ async def root(request):
     return JSONResponse({
         "name": "Cricket Chat MCP Server",
         "status": "running",
+        "version": SERVER_VERSION,
+        "description": SERVER_DESCRIPTION,
         "endpoints": {
-            "mcp": "/mcp",
+            "mcp_sse": "/mcp (SSE - for MCP clients only)",
+            "mcp_messages": "/mcp/messages (HTTP POST - for stateless MCP)",
             "health": "/health",
-            "info": "/info"
-        }
+            "info": "/info",
+            "widgets": "/debug/widgets"
+        },
+        "note": "The /mcp endpoint requires 'Accept: text/event-stream' header and is meant for MCP clients (like Claude Desktop), not browsers."
     })
 
 

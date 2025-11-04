@@ -172,7 +172,9 @@ async def read_resource_handler(req: types.ReadResourceRequest) -> types.ServerR
     widget_html = widget.get_html()
     
     sys.stderr.write(f"   HTML Size: {len(widget_html)} chars\n")
-    sys.stderr.write(f"   Has root div: {'YES' if f'id=\"{widget.root_id}\"' in widget_html else 'NO'}\n")
+    root_id_search = f'id="{widget.root_id}"'
+    has_root_div = 'YES' if root_id_search in widget_html else 'NO'
+    sys.stderr.write(f"   Has root div: {has_root_div}\n")
     sys.stderr.write("📤 CRICKET CHAT: Sending widget HTML to ChatGPT...\n")
     sys.stderr.write("=" * 80 + "\n\n")
     sys.stderr.flush()

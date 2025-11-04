@@ -8,6 +8,9 @@ import os
 
 from starlette.middleware.cors import CORSMiddleware
 from mcp.server.fastmcp import FastMCP
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from config import (
     SERVER_NAME,
@@ -35,6 +38,8 @@ logging.basicConfig(
 logging.getLogger("uvicorn").setLevel(logging.INFO)
 logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
 logging.getLogger("uvicorn.error").setLevel(logging.INFO)
+# Suppress expected MCP stateless mode errors
+logging.getLogger("mcp.server.streamable_http").setLevel(logging.CRITICAL)
 
 # ---------- Build MCP ----------
 def create_mcp_server() -> FastMCP:
@@ -70,7 +75,4 @@ def configure_app(mcp: FastMCP):
 
 # FastCloud picks these up on import:
 mcp = create_mcp_server()
-app = configure_app(mcp) 
-
-def build_server() -> FastMCP:
-    return create_mcp_server()
+app = configure_app(mcp)
