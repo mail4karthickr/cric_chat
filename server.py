@@ -71,3 +71,6 @@ def configure_app(mcp: FastMCP):
 # FastCloud picks these up on import:
 mcp = create_mcp_server()
 app = configure_app(mcp) 
+
+def build_server() -> FastMCP:
+    return create_mcp_server()
