@@ -7,6 +7,7 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+!ui/dist/
 downloads/
 eggs/
 .eggs/
@@ -71,5 +72,5 @@ fpl_storage.json
 *.pem
 *.secret
 
-# Distribution bundles (contain embedded API keys)
-ui/dist/*.js
+# NOTE: ui/dist/ IS committed because widgets use public CDN URLs (no API keys)
+# The React bundles are safe to commit after switching to CDN image loading
