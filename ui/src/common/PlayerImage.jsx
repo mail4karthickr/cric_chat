@@ -33,68 +33,65 @@ const PlayerImage = ({
   const [hasError, setHasError] = React.useState(false);
 
   React.useEffect(() => {
-    let objectUrl = null;
-    let isCancelled = false;
+    if (!faceImageId) {
+      // If no faceImageId, use fallback URL
+      setImageUrl(fallbackUrl || null);
+      setIsLoading(false);
+      setHasError(!fallbackUrl);
+      return;
+    }
 
-    const fetchImage = async () => {
-      if (!faceImageId) {
-        // If no faceImageId, use fallback URL
-        setImageUrl(fallbackUrl || null);
-        setIsLoading(false);
-        return;
-      }
+    try {
+      setIsLoading(true);
+      setHasError(false);
 
-      try {
-        setIsLoading(true);
-        setHasError(false);
-
-        // Call the Cricbuzz get_image API endpoint
-        // Format: /img/v1/i1/c{imageId}/i.jpg?p=de
-        const response = await fetch(
-          `https://cricbuzz-cricket.p.rapidapi.com/img/v1/i1/c${faceImageId}/i.jpg?p=de`,
-          {
-            method: 'GET',
-            headers: {
-              'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_KEY || '2fe6426376mshba6ba3c234ef5e8p122e39jsn331868a1557d',
-              'x-rapidapi-host': process.env.REACT_APP_RAPIDAPI_HOST || 'cricbuzz-cricket.p.rapidapi.com'
-            }
-          }
-        );
-
-        if (!isCancelled) {
-          if (response.ok) {
-            const blob = await response.blob();
-            objectUrl = URL.createObjectURL(blob);
-            setImageUrl(objectUrl);
-            setIsLoading(false);
-          } else {
-            console.warn(`Failed to fetch image for ID ${faceImageId}, status: ${response.status}`);
-            // Fallback to the fallback URL
-            setImageUrl(fallbackUrl || null);
-            setHasError(true);
-            setIsLoading(false);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching player image:', error);
-        if (!isCancelled) {
-          // Fallback to the fallback URL
+      // Try high-resolution images from Cricbuzz CDN
+      // Available sizes: 420x420, 300x170, 250x140, 152x152
+      // For player photos, use 420x420 for best quality
+      const urls = [
+        `https://static.cricbuzz.com/a/img/v1/420x420/i1/c${faceImageId}/i.jpg`,  // High-res
+        `https://static.cricbuzz.com/a/img/v1/300x170/i1/c${faceImageId}/i.jpg`,  // Medium
+        `https://static.cricbuzz.com/a/img/v1/i1/c${faceImageId}/i.jpg`,          // Default
+      ];
+      
+      let urlIndex = 0;
+      
+      const tryNextUrl = () => {
+        if (urlIndex >= urls.length) {
+          console.warn(`All image URLs failed for player ID ${faceImageId}`);
+          // Fall back to fallbackUrl if provided
           setImageUrl(fallbackUrl || null);
           setHasError(true);
           setIsLoading(false);
+          return;
         }
-      }
-    };
+        
+        const currentUrl = urls[urlIndex];
+        const img = new Image();
+        
+        img.onload = () => {
+          setImageUrl(currentUrl);
+          setIsLoading(false);
+          setHasError(false);
+        };
+        
+        img.onerror = () => {
+          console.warn(`Failed to load player image from ${currentUrl}`);
+          urlIndex++;
+          tryNextUrl();
+        };
+        
+        img.src = currentUrl;
+      };
+      
+      tryNextUrl();
 
-    fetchImage();
-
-    // Cleanup function
-    return () => {
-      isCancelled = true;
-      if (objectUrl) {
-        URL.revokeObjectURL(objectUrl);
-      }
-    };
+    } catch (error) {
+      console.error('Error setting up player image:', error);
+      setImageUrl(fallbackUrl || null);
+      setHasError(true);
+      setIsLoading(false);
+    }
   }, [faceImageId, fallbackUrl]);
 
   // Size presets

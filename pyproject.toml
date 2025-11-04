@@ -1,7 +1,7 @@
 [project]
 name = "cric_chat"
 version = "1.0.0"
-description = "Add your description here"
+description = "Cricket statistics and data service powered by Cricbuzz API. Get player profiles, career stats, ICC rankings, news, and interactive widgets."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

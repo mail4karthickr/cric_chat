@@ -35,65 +35,63 @@ const NewsImage = ({
   const [hasError, setHasError] = React.useState(false);
 
   React.useEffect(() => {
-    let objectUrl = null;
-    let isCancelled = false;
+    if (!imageId) {
+      setImageUrl(null);
+      setIsLoading(false);
+      setHasError(true);
+      return;
+    }
 
-    const fetchImage = async () => {
-      if (!imageId) {
-        setImageUrl(null);
-        setIsLoading(false);
-        return;
-      }
+    try {
+      setIsLoading(true);
+      setHasError(false);
 
-      try {
-        setIsLoading(true);
-        setHasError(false);
-
-        // Call the Cricbuzz get_image API endpoint
-        // Format: /img/v1/i1/c{imageId}/i.jpg?p=de
-        const response = await fetch(
-          `https://cricbuzz-cricket.p.rapidapi.com/img/v1/i1/c${imageId}/i.jpg?p=de`,
-          {
-            method: 'GET',
-            headers: {
-              'x-rapidapi-key': '2fe6426376mshba6ba3c234ef5e8p122e39jsn331868a1557d',
-              'x-rapidapi-host': 'cricbuzz-cricket.p.rapidapi.com'
-            }
-          }
-        );
-
-        if (!isCancelled) {
-          if (response.ok) {
-            const blob = await response.blob();
-            objectUrl = URL.createObjectURL(blob);
-            setImageUrl(objectUrl);
-            setIsLoading(false);
-          } else {
-            console.warn(`Failed to fetch news image for ID ${imageId}, status: ${response.status}`);
-            setImageUrl(null);
-            setHasError(true);
-            setIsLoading(false);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching news image:', error);
-        if (!isCancelled) {
+      // Try high-resolution images from Cricbuzz CDN
+      // Available sizes: 420x420, 300x170, 250x140, 152x152
+      // For news, use 420x420 for best quality
+      const urls = [
+        `https://static.cricbuzz.com/a/img/v1/420x420/i1/c${imageId}/i.jpg`,  // High-res
+        `https://static.cricbuzz.com/a/img/v1/300x170/i1/c${imageId}/i.jpg`,  // Medium
+        `https://static.cricbuzz.com/a/img/v1/i1/c${imageId}/i.jpg`,          // Default
+      ];
+      
+      let urlIndex = 0;
+      
+      const tryNextUrl = () => {
+        if (urlIndex >= urls.length) {
+          console.warn(`All image URLs failed for ID ${imageId}`);
           setImageUrl(null);
           setHasError(true);
           setIsLoading(false);
+          return;
         }
-      }
-    };
+        
+        const currentUrl = urls[urlIndex];
+        const img = new Image();
+        
+        img.onload = () => {
+          setImageUrl(currentUrl);
+          setIsLoading(false);
+          setHasError(false);
+        };
+        
+        img.onerror = () => {
+          console.warn(`Failed to load image from ${currentUrl}`);
+          urlIndex++;
+          tryNextUrl();
+        };
+        
+        img.src = currentUrl;
+      };
+      
+      tryNextUrl();
 
-    fetchImage();
-
-    // Cleanup function
-    return () => {
-      isCancelled = true;
-      if (objectUrl) {
-        URL.revokeObjectURL(objectUrl);
-      }
-    };
+    } catch (error) {
+      console.error('Error setting up news image:', error);
+      setImageUrl(null);
+      setHasError(true);
+      setIsLoading(false);
+    }
   }, [imageId]);
 
   // Default styles
