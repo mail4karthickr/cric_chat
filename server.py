@@ -43,10 +43,6 @@ from mcp_handlers import register_mcp_handlers
 from routes import get_routes
 from widgets import widgets, HAS_UI
 
-# Create app at module level for uvicorn --reload compatibility
-mcp = None
-app = None
-
 
 def create_mcp_server() -> FastMCP:
     """Create and configure the FastMCP server."""
@@ -84,6 +80,14 @@ def configure_app(mcp: FastMCP):
     app.routes.extend(get_routes())
     
     return app
+
+
+# Create MCP server instance at module level for FastMCP Cloud deployment
+# FastMCP Cloud will use this instance when deploying
+mcp = create_mcp_server()
+
+# Create app at module level for uvicorn compatibility
+app = configure_app(mcp)
 
 
 def print_startup_banner():
@@ -168,14 +172,6 @@ def main():
     )
 
 
-def _initialize_app():
-    """Initialize the app if not already initialized."""
-    global mcp, app
-    if app is None:
-        mcp = create_mcp_server()
-        app = configure_app(mcp)
-    return app
-
-
+# Entry point for local development
 if __name__ == "__main__":
     main()
