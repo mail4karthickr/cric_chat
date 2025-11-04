@@ -63,3 +63,13 @@ fpl_storage.json
 # Temporary files
 *.tmp
 *.temp
+# Security - NEVER commit these files
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.secret
+
+# Distribution bundles (contain embedded API keys)
+ui/dist/*.js

@@ -169,22 +169,22 @@ widgets: List[CricUIWidget] = [
     #     root_id="player-career-root",
     #     response_text="Displayed player career debut and last played information"
     # ),
-    # CricUIWidget(
-    #     identifier="get-trending-players",
-    #     title="Trending Players",
-    #     description=(
-    #         "Show currently trending cricket players with their images, names, and teams. "
-    #         "Returns a grid of players who are currently popular or in the news. "
-    #         "Includes player images, full names, and team/country information. "
-    #         "Use for 'trending players', 'popular players', or 'who's trending' queries."
-    #     ),
-    #     template_uri="ui://widget/trending-players.html",
-    #     invoking="Loading trending players...",
-    #     invoked="Trending players loaded successfully",
-    #     bundle_name="trending-players",
-    #     root_id="trending-players-root",
-    #     response_text="Displayed currently trending cricket players"
-    # ),
+    CricUIWidget(
+        identifier="get-trending-players",
+        title="Trending Players",
+        description=(
+            "Show currently trending cricket players with their images, names, and teams. "
+            "Returns a grid of players who are currently popular or in the news. "
+            "Includes player images, full names, and team/country information. "
+            "Use for 'trending players', 'popular players', or 'who's trending' queries."
+        ),
+        template_uri="ui://widget/trending-players.html",
+        invoking="Loading trending players...",
+        invoked="Trending players loaded successfully",
+        bundle_name="trending-players",
+        root_id="trending-players-root",
+        response_text="Displayed currently trending cricket players"
+    ),
     CricUIWidget(
         identifier="get-rankings",
         title="ICC Rankings",

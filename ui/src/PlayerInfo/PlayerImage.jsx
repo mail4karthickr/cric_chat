@@ -47,8 +47,8 @@ const PlayerImage = ({
           {
             method: 'GET',
             headers: {
-              'x-rapidapi-key': '2fe6426376mshba6ba3c234ef5e8p122e39jsn331868a1557d',
-              'x-rapidapi-host': 'cricbuzz-cricket.p.rapidapi.com'
+              'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_KEY || '2fe6426376mshba6ba3c234ef5e8p122e39jsn331868a1557d',
+              'x-rapidapi-host': process.env.REACT_APP_RAPIDAPI_HOST || 'cricbuzz-cricket.p.rapidapi.com'
             }
           }
         );

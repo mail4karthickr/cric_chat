@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import theme from '../theme';
 
 export const Container = styled.div`
-  max-width: 600px;
+  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   padding: ${theme.spacing.md};
   padding-bottom: ${theme.spacing.xl};
@@ -19,12 +20,12 @@ export const LoadingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ${theme.spacing.md};
-  padding-bottom: ${theme.spacing.lg};
+  padding: ${theme.spacing.xl};
+  padding-bottom: ${theme.spacing.xxl};
   text-align: center;
   color: ${theme.colors.textLight};
-  font-size: ${theme.fontSize.xs};
-  min-height: 50px;
+  font-size: ${theme.fontSize.md};
+  min-height: 120px;
 `;
 
 export const Card = styled.div`

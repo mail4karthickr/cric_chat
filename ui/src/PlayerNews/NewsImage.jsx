@@ -1,8 +1,16 @@
 import React from 'react';
 
 /**
- * NewsImage Component
- * 
+ * NewsImage         const response = await fetch(
+          `https://cricbuzz-cricket.p.rapidapi.com/img/v1/i1/c${imageId}/i.jpg?p=de&d=high`,
+          {
+            method: 'GET',
+            headers: {
+              'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_KEY || '2fe6426376mshba6ba3c234ef5e8p122e39jsn331868a1557d',
+              'x-rapidapi-host': process.env.REACT_APP_RAPIDAPI_HOST || 'cricbuzz-cricket.p.rapidapi.com'
+            }
+          }
+        ); * 
  * A reusable component that fetches and displays news cover images from Cricbuzz API
  * using the imageId. Falls back to a placeholder if the image cannot be loaded.
  * 
