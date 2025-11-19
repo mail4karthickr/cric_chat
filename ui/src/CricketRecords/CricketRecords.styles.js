@@ -2,7 +2,7 @@
 
 export const container = {
   width: '100%',
-  maxWidth: '680px',
+  maxWidth: '630px',
   margin: '0 auto',
   padding: '16px',
   backgroundColor: '#ffffff',

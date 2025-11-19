@@ -25080,7 +25080,7 @@ var commonStyles = {
 // src/PlayerCareer/PlayerCareer.styles.js
 var Container = dt.div`
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   margin: 0 auto;
   padding: ${spacing.sm};
   padding-bottom: ${spacing.xl};

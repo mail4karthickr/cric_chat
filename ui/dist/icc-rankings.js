@@ -23729,7 +23729,7 @@ var PlayerImage_default = PlayerImage;
 
 // src/ICCRankings/ICCRankings.styles.js
 var container = {
-  maxWidth: "500px",
+  maxWidth: "450px",
   width: "100%",
   margin: "0 auto",
   padding: "16px",
@@ -23869,8 +23869,15 @@ var ICCRankings = ({ data }) => {
     return /* @__PURE__ */ import_react3.default.createElement("div", { style: container }, /* @__PURE__ */ import_react3.default.createElement("div", { style: errorState }, /* @__PURE__ */ import_react3.default.createElement("div", { style: { fontWeight: 600, marginBottom: "8px" } }, "Error Loading Rankings"), /* @__PURE__ */ import_react3.default.createElement("div", null, data.error)));
   }
   const rankings = data.rank || data.rankings || [];
+  const metadata = data.metadata || {};
+  const getTitle = () => {
+    const gender = metadata.gender || "";
+    const format = metadata.format_name || "Test";
+    const category = metadata.category_name || "Batting";
+    return `\u{1F3C6} ICC ${gender ? gender + " " : ""}${format} ${category} Rankings`;
+  };
   if (rankings.length === 0) {
-    return /* @__PURE__ */ import_react3.default.createElement("div", { style: container }, /* @__PURE__ */ import_react3.default.createElement("div", { style: header }, /* @__PURE__ */ import_react3.default.createElement("div", { style: title }, "\u{1F3C6} ICC Rankings")), /* @__PURE__ */ import_react3.default.createElement("div", { style: emptyState }, /* @__PURE__ */ import_react3.default.createElement("div", { style: { fontSize: "48px", opacity: 0.3 } }, "\u{1F3C6}"), /* @__PURE__ */ import_react3.default.createElement("div", { style: { marginTop: "8px" } }, "No rankings available")));
+    return /* @__PURE__ */ import_react3.default.createElement("div", { style: container }, /* @__PURE__ */ import_react3.default.createElement("div", { style: header }, /* @__PURE__ */ import_react3.default.createElement("div", { style: title }, getTitle())), /* @__PURE__ */ import_react3.default.createElement("div", { style: emptyState }, /* @__PURE__ */ import_react3.default.createElement("div", { style: { fontSize: "48px", opacity: 0.3 } }, "\u{1F3C6}"), /* @__PURE__ */ import_react3.default.createElement("div", { style: { marginTop: "8px" } }, "No rankings available")));
   }
   const getTrendIcon = (trend) => {
     if (!trend || trend === "Flat")
@@ -23888,7 +23895,7 @@ var ICCRankings = ({ data }) => {
       return "#ef4444";
     return "#94a3b8";
   };
-  return /* @__PURE__ */ import_react3.default.createElement("div", { style: container }, /* @__PURE__ */ import_react3.default.createElement("div", { style: header }, /* @__PURE__ */ import_react3.default.createElement("div", { style: title }, "\u{1F3C6} ICC Test Batting Rankings"), rankings.length > 0 && /* @__PURE__ */ import_react3.default.createElement("div", { style: subtitle }, "Top ", rankings.length, " players \u2022 Updated recently")), /* @__PURE__ */ import_react3.default.createElement("div", { style: rankingsList }, rankings.map((player, index) => {
+  return /* @__PURE__ */ import_react3.default.createElement("div", { style: container }, /* @__PURE__ */ import_react3.default.createElement("div", { style: header }, /* @__PURE__ */ import_react3.default.createElement("div", { style: title }, getTitle()), rankings.length > 0 && /* @__PURE__ */ import_react3.default.createElement("div", { style: subtitle }, "Top ", rankings.length, " players \u2022 Updated recently")), /* @__PURE__ */ import_react3.default.createElement("div", { style: rankingsList }, rankings.map((player, index) => {
     const isTop3 = parseInt(player.rank) <= 3;
     const trend = player.trend || "Flat";
     return /* @__PURE__ */ import_react3.default.createElement("div", { key: player.id || index, style: rankingCard }, /* @__PURE__ */ import_react3.default.createElement("div", { style: rankBadge(isTop3) }, player.rank), /* @__PURE__ */ import_react3.default.createElement("div", { style: playerImageContainer }, /* @__PURE__ */ import_react3.default.createElement(

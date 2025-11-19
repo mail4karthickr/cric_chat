@@ -5,10 +5,6 @@ Handles authentication and common HTTP operations
 from typing import Optional
 import httpx
 import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 
 # Custom Exceptions
@@ -54,10 +50,13 @@ class BaseCricBuzzClient:
         if client is None:
             # Get API credentials from environment variables
             api_key = os.getenv('RAPIDAPI_KEY')
-            api_host = os.getenv('RAPIDAPI_HOST', 'cricbuzz-cricket.p.rapidapi.com')
-            
             if not api_key:
-                raise ValueError("RAPIDAPI_KEY environment variable is not set")
+                raise ValueError(
+                    "RAPIDAPI_KEY environment variable is not set. "
+                    "Please create a .env file with your RapidAPI key. "
+                    "See .env.example for reference."
+                )
+            api_host = os.getenv('RAPIDAPI_HOST', 'cricbuzz-cricket.p.rapidapi.com')
             
             # Create client with RapidAPI headers and timeouts
             headers = {

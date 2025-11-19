@@ -25222,7 +25222,7 @@ var theme_default = theme;
 
 // src/PlayerInfo/PlayerInfo.styles.js
 var Container = dt.div`
-  max-width: 900px;
+  max-width: 850px;
   width: 100%;
   margin: 0 auto;
   padding: ${theme_default.spacing.md};

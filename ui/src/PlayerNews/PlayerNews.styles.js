@@ -3,7 +3,7 @@ import { colors, gradients, shadows, borderRadius, spacing, fontSize, fontWeight
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 650px;
+  max-width: 600px;
   margin: 0 auto;
   padding: ${spacing.md};
   padding-bottom: ${spacing.xl};

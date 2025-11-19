@@ -56,13 +56,23 @@ const ICCRankings = ({ data }) => {
   }
 
   const rankings = data.rank || data.rankings || [];
+  const metadata = data.metadata || {};
+
+  // Generate dynamic title based on metadata
+  const getTitle = () => {
+    const gender = metadata.gender || '';
+    const format = metadata.format_name || 'Test';
+    const category = metadata.category_name || 'Batting';
+    
+    return `🏆 ICC ${gender ? gender + ' ' : ''}${format} ${category} Rankings`;
+  };
 
   if (rankings.length === 0) {
     return (
       <div style={container}>
         <div style={header}>
           <div style={title}>
-            🏆 ICC Rankings
+            {getTitle()}
           </div>
         </div>
         <div style={emptyState}>
@@ -90,7 +100,7 @@ const ICCRankings = ({ data }) => {
     <div style={container}>
       <div style={header}>
         <div style={title}>
-          🏆 ICC Test Batting Rankings
+          {getTitle()}
         </div>
         {rankings.length > 0 && (
           <div style={subtitle}>

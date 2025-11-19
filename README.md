@@ -47,6 +47,32 @@ Cricket Chat is a Model Context Protocol (MCP) server that provides cricket data
 
 ### Installation
 
+#### Option 1: Docker (Recommended for Production)
+
+**Quick Start:**
+```bash
+# 1. Create .env file
+cp .env.example .env
+# Edit .env and add your RAPIDAPI_KEY
+
+# 2. Run with Docker Compose
+docker-compose up -d
+
+# 3. Verify
+curl http://localhost:8000/health
+```
+
+**Build and Push to Docker Hub:**
+```bash
+./docker-build-push.sh
+```
+
+📚 **See detailed guides:**
+- [DOCKER_QUICK_START.md](DOCKER_QUICK_START.md) - Quick commands and checklist
+- [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) - Complete deployment guide
+
+#### Option 2: Local Development
+
 1. **Clone the repository**
 ```bash
 cd cric_chat
