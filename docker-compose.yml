@@ -2,14 +2,9 @@ version: '3.8'
 
 services:
   cric-chat:
-    # For local development, use build:
     build:
       context: .
       dockerfile: Dockerfile
-    
-    # For deployment from Docker Hub, comment out build above and uncomment image below:
-    # image: yourusername/cric-chat:latest
-    
     container_name: cric-chat-server
     ports:
       - "8000:8000"

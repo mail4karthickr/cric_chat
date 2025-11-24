@@ -3,7 +3,7 @@ import theme from '../theme';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   margin: 0 auto;
   padding: ${theme.spacing.sm};
   padding-bottom: ${theme.spacing.xl};

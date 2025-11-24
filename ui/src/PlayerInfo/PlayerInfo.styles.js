@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../theme';
 
 export const Container = styled.div`
-  max-width: 850px;
+  max-width: 900px;
   width: 100%;
   margin: 0 auto;
   padding: ${theme.spacing.md};

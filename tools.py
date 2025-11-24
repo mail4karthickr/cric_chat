@@ -209,7 +209,7 @@ async def _handle_get_player_bowling(arguments: dict) -> types.ServerResult:
     payload = GetPlayerBowlingInput.model_validate(arguments)
     
     async with PlayersAPI() as api:
-        bowling_stats = await api.get_bwidgetowling(payload.player_id)
+        bowling_stats = await api.get_bowling(payload.player_id)
     
     return types.ServerResult(
         types.CallToolResult(
@@ -297,26 +297,13 @@ async def _handle_get_rankings(arguments: dict) -> types.ServerResult:
     format_name = payload.format_type.upper()
     category_name = payload.category.capitalize()
     
-    # Add metadata to the rankings response for UI
-    rankings_with_metadata = {
-        **rankings,
-        "metadata": {
-            "category": payload.category,
-            "format_type": payload.format_type,
-            "is_women": payload.is_women,
-            "gender": gender,
-            "format_name": format_name,
-            "category_name": category_name
-        }
-    }
-    
     return types.ServerResult(
         types.CallToolResult(
             content=[types.TextContent(
                 type="text",
                 text=f"Successfully retrieved {gender} {format_name} {category_name} rankings."
             )],
-            structuredContent=rankings_with_metadata,
+            structuredContent=rankings,
         )
     )
 

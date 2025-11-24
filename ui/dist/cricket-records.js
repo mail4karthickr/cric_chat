@@ -23598,7 +23598,7 @@ function useToolOutput() {
 // src/CricketRecords/CricketRecords.styles.js
 var container = {
   width: "100%",
-  maxWidth: "630px",
+  maxWidth: "680px",
   margin: "0 auto",
   padding: "16px",
   backgroundColor: "#ffffff",

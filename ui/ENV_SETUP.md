@@ -37,13 +37,13 @@ ui/
 ```javascript
 // build.js reads .env file
 // esbuild replaces process.env.REACT_APP_RAPIDAPI_KEY with actual value
-// Output: "x-rapidapi-key": "your_actual_api_key_here"
+// Output: "x-rapidapi-key": "2fe6426376msh..."
 ```
 
 ### 3. **Compiled Bundle (`.js` files)**
 ```javascript
 // The actual API key is embedded in the bundle
-"x-rapidapi-key": "your_actual_api_key_here"
+"x-rapidapi-key": "2fe6426376mshba6ba3c234ef5e8p122e39jsn331868a1557d"
 ```
 
 ---

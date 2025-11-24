@@ -25225,7 +25225,7 @@ var commonStyles = {
 // src/PlayerNews/PlayerNews.styles.js
 var Container = dt.div`
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
   padding: ${spacing.md};
   padding-bottom: ${spacing.xl};
